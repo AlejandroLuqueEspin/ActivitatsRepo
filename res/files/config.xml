@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<enemies>
+
+	<enemy name="ghost">
+	
+		<health>100</health>
+		<damage>3</damage>
+		<defense>2</defense>
+		<freqAtk>1</freqAtk>
+		<exp>8</exp>
+		
+		<inventory>
+			<weapon identificador="1">
+				<type>cuchillo</type>
+			
+				<range>3</range>
+			
+			</weapon>
+		</inventory>
+
+	</enemy>
+	
+    <enemy name="goblin">
+	
+		<health>100</health>
+		<damage>3</damage>
+		<defense>2</defense>	
+		<freqAtk>1</freqAtk>
+		<exp>8</exp>
+		
+		<inventory>
+			<weapon identificador="1">
+				<type>cuchillo</type>
+			
+				<range>3</range>
+			
+			</weapon>
+		</inventory>
+
+	</enemy>
+	
+	<enemy name="monster">
+	
+		<health>100</health>
+		<damage>3</damage>
+		<defense>2</defense>
+		<freqAtk>1</freqAtk>
+		<exp>8</exp>
+		
+		<inventory>
+			<weapon identificador="1">
+				<type>cuchillo</type>
+			
+				<range>3</range>
+			
+			</weapon>
+		</inventory>
+
+	</enemy>
+	
+	<enemy name="zombie">
+	
+		<health>100</health>
+		<damage>3</damage>
+		<defense>2</defense>
+		<freqAtk>1</freqAtk>
+		<exp>8</exp>
+		
+		<inventory>
+			<weapon identificador="1">
+				<type>cuchillo</type>
+			
+				<range>3</range>
+			
+			</weapon>
+		</inventory>
+
+	</enemy>
+	
+
+</enemies>
