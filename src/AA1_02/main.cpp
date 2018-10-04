@@ -36,6 +36,7 @@ int main(int, char*[])
 
 	//-->SDL_TTF
 	if (TTF_Init() != 0)throw "No es pot inicialitzar SDL_ttf";
+
 	//-->SDL_Mix
 
 	// --- SPRITES ---
@@ -47,23 +48,84 @@ int main(int, char*[])
 	//Player 
 	SDL_Texture *playerTexture{ IMG_LoadTexture(m_renderer,"../../res/img/kintoun.png") };
 	SDL_Rect playerRect{ 0,0,350,189 };
-	SDL_Rect playerTarget{ 0,0,350,189 };
 	//-->Animated Sprite ---
 	
 	// --- TEXT ---
+	//Title 
 	TTF_Font *font{ TTF_OpenFont("../../res/ttf/saiyan.ttf",80) };
 	if (font == nullptr) throw "No es pot inicialitzar TTF_Font";
-	SDL_Surface *tmpSurf{ TTF_RenderText_Blended(font,"Firts SDL GAME",SDL_Color{255,150,0,155}) };
-	if (tmpSurf = nullptr)throw "No es pot crear SDL Surface";
-	SDL_Texture *textTexture(SDL_CreateTextureFromSurface(m_renderer, tmpSurf));
-	SDL_Rect textRect{ 100,50,tmpSurf->w,tmpSurf->h };
 
-	tmpSurf = { TTF_RenderText_Blended(font,"Myfirst SDL Game", SDL_Color{110,201,170,255}) };
-	SDL_Texture *textPlayHover{ SDL_CreateTextureFromSurface(m_renderer,tmpSurf) };
+	SDL_Surface *tmpSurf{ TTF_RenderText_Blended(font, "Myfirst SDL Game", SDL_Color{ 255,150,0,155 }) };
+	if (tmpSurf == nullptr)throw "No es pot crear SDL Surface";
+	SDL_Texture *textTexture(SDL_CreateTextureFromSurface(m_renderer, tmpSurf));//	Color 1
+
+	SDL_Rect textRect{ 100,50,tmpSurf->w,tmpSurf->h }; //Location
+
+	tmpSurf = { TTF_RenderText_Blended(font,"Myfirst SDL Game", SDL_Color{ 100,100,50,155 }) };
+	if (tmpSurf == nullptr)throw "No es pot crear SDL Surface";
+	SDL_Texture *textPlayHover{ SDL_CreateTextureFromSurface(m_renderer,tmpSurf) };// Color 2
+
 	SDL_FreeSurface(tmpSurf);
 	TTF_CloseFont(font);
+	//
 
-	SDL_Texture *textAux = textTexture;
+	//Play 
+	TTF_Font *font{ TTF_OpenFont("../../res/ttf/saiyan.ttf",80) };
+	if (font == nullptr) throw "No es pot inicialitzar TTF_Font";
+
+	SDL_Surface *tmpSurf{ TTF_RenderText_Blended(font, "Myfirst SDL Game", SDL_Color{ 255,150,0,155 }) };
+	if (tmpSurf == nullptr)throw "No es pot crear SDL Surface";
+	SDL_Texture *textTexture(SDL_CreateTextureFromSurface(m_renderer, tmpSurf));//	Color 1
+
+	SDL_Rect textRect{ 100,50,tmpSurf->w,tmpSurf->h }; //Location
+
+	tmpSurf = { TTF_RenderText_Blended(font,"Myfirst SDL Game", SDL_Color{ 100,100,50,155 }) };
+	if (tmpSurf == nullptr)throw "No es pot crear SDL Surface";
+	SDL_Texture *textPlayHover{ SDL_CreateTextureFromSurface(m_renderer,tmpSurf) };// Color 2
+
+	SDL_FreeSurface(tmpSurf);
+	TTF_CloseFont(font);
+	//
+
+	//Exit 
+	if (font == nullptr) throw "No es pot inicialitzar TTF_Font";
+
+	SDL_Surface *tmpSurf{ TTF_RenderText_Blended(font, "Myfirst SDL Game", SDL_Color{ 255,150,0,155 }) };
+	if (tmpSurf == nullptr)throw "No es pot crear SDL Surface";
+	SDL_Texture *textTexture(SDL_CreateTextureFromSurface(m_renderer, tmpSurf));//	Color 1
+
+	SDL_Rect textRect{ 100,50,tmpSurf->w,tmpSurf->h }; //Location
+
+	tmpSurf = { TTF_RenderText_Blended(font,"Myfirst SDL Game", SDL_Color{ 100,100,50,155 }) };
+	if (tmpSurf == nullptr)throw "No es pot crear SDL Surface";
+	SDL_Texture *textPlayHover{ SDL_CreateTextureFromSurface(m_renderer,tmpSurf) };// Color 2
+
+	SDL_FreeSurface(tmpSurf);
+	TTF_CloseFont(font);
+	//
+
+	//Sound 
+	TTF_Font *font{ TTF_OpenFont("../../res/ttf/saiyan.ttf",80) };
+	if (font == nullptr) throw "No es pot inicialitzar TTF_Font";
+
+	SDL_Surface *tmpSurf{ TTF_RenderText_Blended(font, "Myfirst SDL Game", SDL_Color{ 255,150,0,155 }) };
+	if (tmpSurf == nullptr)throw "No es pot crear SDL Surface";
+	SDL_Texture *textTexture(SDL_CreateTextureFromSurface(m_renderer, tmpSurf));//	Color 1
+
+	SDL_Rect textRect{ 100,50,tmpSurf->w,tmpSurf->h }; //Location
+
+	tmpSurf = { TTF_RenderText_Blended(font,"Myfirst SDL Game", SDL_Color{ 100,100,50,155 }) };
+	if (tmpSurf == nullptr)throw "No es pot crear SDL Surface";
+	SDL_Texture *textPlayHover{ SDL_CreateTextureFromSurface(m_renderer,tmpSurf) };// Color 2
+
+	SDL_FreeSurface(tmpSurf);
+	TTF_CloseFont(font);
+	//
+
+
+	SDL_Texture *textAuxTitle;
+	
+
 
 	Types:: vec2 mousePos = { 0,0 };
 	Types::myRect newRect = { textRect.x,textRect.y,textRect.w,textRect.h };
@@ -72,7 +134,9 @@ int main(int, char*[])
 
 	// --- GAME LOOP ---
 	SDL_Event event;
+	bool click = false;
 	bool isRunning = true;
+
 	while (isRunning) {
 		// HANDLE EVENTS
 		while (SDL_PollEvent(&event)) {
@@ -88,29 +152,32 @@ int main(int, char*[])
 				int w, h;
 				SDL_QueryTexture(playerTexture, NULL, NULL, &w, &h);
 
-				playerTarget.x = event.motion.x - W / 2;
-				playerTarget.y = event.motion.y - H / 2;
+				playerRect.x = event.motion.x - W / 2;
+				playerRect.y = event.motion.y - H / 2;
 
 				//Actualiza la x e y
 				mousePos.x = event.motion.x;
 				mousePos.y = event.motion.y;
+			case SDL_MOUSEBUTTONDOWN:
+				click = true;
+				break;
+
 			default:;
 			}
 		}
 
 		// UPDATE
-		playerRect.x += (playerTarget.x - playerRect.x) / 10;
-		playerRect.y += (playerTarget.y - playerRect.y) / 10;
-		textAux = PlayerCollisions::ChecKCollisionHover(mousePos, newRect) ? textPlayHover : textTexture;
+		textAuxTitle = PlayerCollisions::ChecKCollisionHover(mousePos, newRect) ? textPlayHover : textTexture;
+
 
 		// DRAW
 		SDL_RenderClear(m_renderer);
 		//Background
 		SDL_RenderCopy(m_renderer, bgTexture, nullptr, &bgRect);
 		//player
-		SDL_RenderCopy(m_renderer, bgTexture, nullptr, &bgRect);
-			//text
-		SDL_RenderCopy(m_renderer, textTexture, nullptr, &textRect);
+		SDL_RenderCopy(m_renderer, playerTexture, nullptr, &playerRect);
+		//text
+		SDL_RenderCopy(m_renderer, textAuxTitle, nullptr, &textRect);
 
 
 		SDL_RenderPresent(m_renderer);
