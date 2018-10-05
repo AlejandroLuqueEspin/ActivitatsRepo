@@ -44,7 +44,7 @@ int main(int, char*[])
 
 
 	// --- SPRITES ---
-		//Background
+	//Background
 	SDL_Texture* bgTexture{ IMG_LoadTexture(m_renderer, "../../res/img/bg.jpg") };
 	if (bgTexture == nullptr) throw "Error: bgTexture init";
 	SDL_Rect bgRect{ 0,0,SCREEN_WIDTH, SCREEN_HEIGHT };
@@ -70,7 +70,7 @@ int main(int, char*[])
 	if (tmpSurf == nullptr)throw "No es pot crear SDL Surface";
 	SDL_Texture *textureTitleHover{ SDL_CreateTextureFromSurface(m_renderer,tmpSurf) };// Color 2
 
-	SDL_Rect textRectTitle{ 100,50,tmpSurf->w,tmpSurf->h }; //Location
+	SDL_Rect textRectTitle{ 100,50,SCREEN_WIDTH/2,100 }; //Location
 	//
 
 	//*********************Play 
@@ -83,7 +83,8 @@ int main(int, char*[])
 	if (tmpSurf == nullptr)throw "No es pot crear SDL Surface";
 	SDL_Texture *texturePlayHover{ SDL_CreateTextureFromSurface(m_renderer,tmpSurf) };// Color 2
 
-	SDL_Rect textRectPlay{ 100,150,tmpSurf->w,tmpSurf->h }; //Location
+
+	SDL_Rect textRectPlay={ 50,150,200,100 }; //Location
 	//
 
 	//***********************Exit 
@@ -96,11 +97,11 @@ int main(int, char*[])
 	if (tmpSurf == nullptr)throw "No es pot crear SDL Surface";
 	SDL_Texture *textureExitHover{ SDL_CreateTextureFromSurface(m_renderer,tmpSurf) };// Color 2
 
-	SDL_Rect textRectExit{ 100,250,tmpSurf->w,tmpSurf->h }; //Location
+	SDL_Rect textRectExit={ 50,250,200,100 }; //Location
 	//
 
 	//*********************Sound 
-	SDL_Rect textRectSound{ 100,350,tmpSurf->w,tmpSurf->h }; //Location
+	SDL_Rect textRectSound={ 50,350,200,100 }; //Location
 	//*******************************Sound_off
 	tmpSurf = TTF_RenderText_Blended(font, "Sound off", SDL_Color{ 255,150,0,155 });
 	if (tmpSurf == nullptr)throw "No es pot crear SDL Surface";
@@ -118,7 +119,6 @@ int main(int, char*[])
 	tmpSurf = { TTF_RenderText_Blended(font,"Sound on", SDL_Color{ 100,100,50,155 }) };
 	if (tmpSurf == nullptr)throw "No es pot crear SDL Surface";
 	SDL_Texture *textureSoundOnHover{ SDL_CreateTextureFromSurface(m_renderer,tmpSurf) };// Color 2
-
 	//
 
 	SDL_FreeSurface(tmpSurf);
@@ -126,13 +126,7 @@ int main(int, char*[])
 
 	SDL_Texture *textureAuxTitle,*textureAuxPlay,*textureAuxSound,*textureAuxExit;
 	
-
-
 	Types:: vec2 mousePos = { 0,0 };
-	Types::myRect newRectTitle = { textRectTitle.x,textRectTitle.y,textRectTitle.w,textRectTitle.h };
-	Types::myRect newRectPlay = { textRectPlay.x,textRectPlay.y,textRectPlay.w,textRectPlay.h };
-	Types::myRect newRectSound = { textRectSound.x,textRectSound.y,textRectSound.w,textRectSound.h };
-	Types::myRect newRectExit = { textRectExit.x,textRectExit.y,textRectExit.w,textRectExit.h };
 
 	// --- AUDIO ---
 	if (Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, 2, 1024) == -1)
@@ -141,6 +135,9 @@ int main(int, char*[])
 	Mix_Music *soundtrack(Mix_LoadMUS("../../res/au/mainTheme.mp3"));
 	Mix_VolumeMusic(MIX_MAX_VOLUME / 2);
 	Mix_PlayMusic(soundtrack,-1);
+
+
+
 	// --- GAME LOOP ---
 	SDL_Event event;
 	bool click = false;
@@ -167,34 +164,45 @@ int main(int, char*[])
 				//Actualiza la x e y
 				mousePos.x = event.motion.x;
 				mousePos.y = event.motion.y;
+
 			case SDL_MOUSEBUTTONDOWN:
-				click = true;
+				if(event.button.button == SDL_BUTTON_LEFT)click = true;
 				break;
 
-			default:;
+			default:
+				break;
 			}
 		}
 
 		// ****************************************************************************************UPDATE
-		textureAuxTitle = PlayerCollisions::ChecKCollision(mousePos, newRectTitle) ? textureTitleHover : titleTexture;
-		textureAuxPlay = PlayerCollisions::ChecKCollision(mousePos, newRectPlay) ? texturePlayHover : playTexture;
-		textureAuxExit = PlayerCollisions::ChecKCollision(mousePos, newRectExit) ? textureExitHover : exitTexture;
+		textureAuxTitle = PlayerCollisions::ChecKCollision(mousePos, textRectTitle) ? textureTitleHover : titleTexture;
+		textureAuxPlay = PlayerCollisions::ChecKCollision(mousePos, textRectPlay) ? texturePlayHover : playTexture;
+		textureAuxExit = PlayerCollisions::ChecKCollision(mousePos, textRectExit) ? textureExitHover : exitTexture;
+
 		if (Mix_PlayingMusic()) {
+
 			if (!Mix_PausedMusic()) {
-				textureAuxSound = PlayerCollisions::ChecKCollision(mousePos, newRectExit) ? textureSoundOnHover : soundOnTexture;
-				if (click&&PlayerCollisions::ChecKCollision(mousePos, newRectSound))
+				textureAuxSound = PlayerCollisions::ChecKCollision(mousePos, textRectSound) ? textureSoundOffHover : soundOffTexture;
+				if (click&&PlayerCollisions::ChecKCollision(mousePos, textRectSound)) {
 					Mix_PauseMusic();
+					click = false;
+				}
 			}
+
 			else {
-				textureAuxSound = PlayerCollisions::ChecKCollision(mousePos, newRectExit) ? textureSoundOffHover : soundOffTexture;
-				if (click&&PlayerCollisions::ChecKCollision(mousePos, newRectSound))
+				textureAuxSound = PlayerCollisions::ChecKCollision(mousePos, textRectSound) ? textureSoundOnHover : soundOnTexture;
+				if (click&&PlayerCollisions::ChecKCollision(mousePos, textRectSound)) {
 					Mix_ResumeMusic();
+					click = false;
+				}
 			}
 
 		}
 		else
 			textureAuxSound = soundOffTexture;
-
+		if (PlayerCollisions::ChecKCollision(mousePos, textRectExit) && click) {
+			isRunning=false;
+		}
 
 
 
@@ -225,13 +233,15 @@ int main(int, char*[])
 	}
 
 	// --- DESTROY ---
-	/*SDL_DestroyTexture(bgTexture);
+	SDL_DestroyTexture(bgTexture);
 	SDL_DestroyTexture(playerTexture);
-	SDL_DestroyTexture(textureAuxTitle);
-	SDL_DestroyTexture(textureAuxPlay);
-	SDL_DestroyTexture(textureAuxSound);
-	SDL_DestroyTexture(textureAuxExit);
-	*/
+	SDL_DestroyTexture(titleTexture);
+	SDL_DestroyTexture(playTexture);
+	SDL_DestroyTexture(soundOnTexture);
+	SDL_DestroyTexture(soundOffTexture);
+	SDL_DestroyTexture(exitTexture);
+
+	
 	Mix_Quit();
 	IMG_Quit();
 	TTF_Quit();
