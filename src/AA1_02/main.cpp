@@ -51,84 +51,84 @@ int main(int, char*[])
 	//-->Animated Sprite ---
 	
 	// --- TEXT ---
-	//Title 
 	TTF_Font *font{ TTF_OpenFont("../../res/ttf/saiyan.ttf",80) };
 	if (font == nullptr) throw "No es pot inicialitzar TTF_Font";
+	SDL_Surface *tmpSurf;
 
-	SDL_Surface *tmpSurf{ TTF_RenderText_Blended(font, "Myfirst SDL Game", SDL_Color{ 255,150,0,155 }) };
+
+	//*********************Title 
+	tmpSurf = TTF_RenderText_Blended(font, "Myfirst SDL Game", SDL_Color{ 255,150,0,155 }) ;
 	if (tmpSurf == nullptr)throw "No es pot crear SDL Surface";
-	SDL_Texture *textTexture(SDL_CreateTextureFromSurface(m_renderer, tmpSurf));//	Color 1
+	SDL_Texture *titleTexture(SDL_CreateTextureFromSurface(m_renderer, tmpSurf));//	Color 1
 
-	SDL_Rect textRect{ 100,50,tmpSurf->w,tmpSurf->h }; //Location
 
 	tmpSurf = { TTF_RenderText_Blended(font,"Myfirst SDL Game", SDL_Color{ 100,100,50,155 }) };
 	if (tmpSurf == nullptr)throw "No es pot crear SDL Surface";
-	SDL_Texture *textPlayHover{ SDL_CreateTextureFromSurface(m_renderer,tmpSurf) };// Color 2
+	SDL_Texture *textureTitleHover{ SDL_CreateTextureFromSurface(m_renderer,tmpSurf) };// Color 2
+
+	SDL_Rect textRectTitle{ 100,50,tmpSurf->w,tmpSurf->h }; //Location
+	//
+
+	//*********************Play 
+	tmpSurf = TTF_RenderText_Blended(font, "Play", SDL_Color{ 255,150,0,155 });
+	if (tmpSurf == nullptr)throw "No es pot crear SDL Surface";
+	SDL_Texture *playTexture(SDL_CreateTextureFromSurface(m_renderer, tmpSurf));//	Color 1
+
+
+	tmpSurf = { TTF_RenderText_Blended(font,"Play", SDL_Color{ 100,100,50,155 }) };
+	if (tmpSurf == nullptr)throw "No es pot crear SDL Surface";
+	SDL_Texture *texturePlayHover{ SDL_CreateTextureFromSurface(m_renderer,tmpSurf) };// Color 2
+
+	SDL_Rect textRectPlay{ 100,150,tmpSurf->w,tmpSurf->h }; //Location
+	//
+
+	//***********************Exit 
+	tmpSurf = TTF_RenderText_Blended(font, "Exit", SDL_Color{ 255,150,0,155 });
+	if (tmpSurf == nullptr)throw "No es pot crear SDL Surface";
+	SDL_Texture *exitTexture(SDL_CreateTextureFromSurface(m_renderer, tmpSurf));//	Color 1
+
+
+	tmpSurf = { TTF_RenderText_Blended(font,"Exit", SDL_Color{ 100,100,50,155 }) };
+	if (tmpSurf == nullptr)throw "No es pot crear SDL Surface";
+	SDL_Texture *textureExitHover{ SDL_CreateTextureFromSurface(m_renderer,tmpSurf) };// Color 2
+
+	SDL_Rect textRectExit{ 100,250,tmpSurf->w,tmpSurf->h }; //Location
+	//
+
+	//*********************Sound 
+	SDL_Rect textRectSound{ 100,250,tmpSurf->w,tmpSurf->h }; //Location
+	//*******************************Sound_off
+	tmpSurf = TTF_RenderText_Blended(font, "Sound off", SDL_Color{ 255,150,0,155 });
+	if (tmpSurf == nullptr)throw "No es pot crear SDL Surface";
+	SDL_Texture *soundOffTexture(SDL_CreateTextureFromSurface(m_renderer, tmpSurf));//	Color 1
+
+	tmpSurf = { TTF_RenderText_Blended(font,"Sound off", SDL_Color{ 100,100,50,155 }) };
+	if (tmpSurf == nullptr)throw "No es pot crear SDL Surface";
+	SDL_Texture *textureSoundOffHover{ SDL_CreateTextureFromSurface(m_renderer,tmpSurf) };// Color 2
+
+	//******************************Sound_ON
+	tmpSurf = TTF_RenderText_Blended(font, "Sound on", SDL_Color{ 255,150,0,155 });
+	if (tmpSurf == nullptr)throw "No es pot crear SDL Surface";
+	SDL_Texture *soundOnTexture(SDL_CreateTextureFromSurface(m_renderer, tmpSurf));//	Color 1
+
+	tmpSurf = { TTF_RenderText_Blended(font,"Sound on", SDL_Color{ 100,100,50,155 }) };
+	if (tmpSurf == nullptr)throw "No es pot crear SDL Surface";
+	SDL_Texture *textureSoundOnHover{ SDL_CreateTextureFromSurface(m_renderer,tmpSurf) };// Color 2
+
+	//
 
 	SDL_FreeSurface(tmpSurf);
 	TTF_CloseFont(font);
-	//
 
-	//Play 
-	TTF_Font *font{ TTF_OpenFont("../../res/ttf/saiyan.ttf",80) };
-	if (font == nullptr) throw "No es pot inicialitzar TTF_Font";
-
-	SDL_Surface *tmpSurf{ TTF_RenderText_Blended(font, "Myfirst SDL Game", SDL_Color{ 255,150,0,155 }) };
-	if (tmpSurf == nullptr)throw "No es pot crear SDL Surface";
-	SDL_Texture *textTexture(SDL_CreateTextureFromSurface(m_renderer, tmpSurf));//	Color 1
-
-	SDL_Rect textRect{ 100,50,tmpSurf->w,tmpSurf->h }; //Location
-
-	tmpSurf = { TTF_RenderText_Blended(font,"Myfirst SDL Game", SDL_Color{ 100,100,50,155 }) };
-	if (tmpSurf == nullptr)throw "No es pot crear SDL Surface";
-	SDL_Texture *textPlayHover{ SDL_CreateTextureFromSurface(m_renderer,tmpSurf) };// Color 2
-
-	SDL_FreeSurface(tmpSurf);
-	TTF_CloseFont(font);
-	//
-
-	//Exit 
-	if (font == nullptr) throw "No es pot inicialitzar TTF_Font";
-
-	SDL_Surface *tmpSurf{ TTF_RenderText_Blended(font, "Myfirst SDL Game", SDL_Color{ 255,150,0,155 }) };
-	if (tmpSurf == nullptr)throw "No es pot crear SDL Surface";
-	SDL_Texture *textTexture(SDL_CreateTextureFromSurface(m_renderer, tmpSurf));//	Color 1
-
-	SDL_Rect textRect{ 100,50,tmpSurf->w,tmpSurf->h }; //Location
-
-	tmpSurf = { TTF_RenderText_Blended(font,"Myfirst SDL Game", SDL_Color{ 100,100,50,155 }) };
-	if (tmpSurf == nullptr)throw "No es pot crear SDL Surface";
-	SDL_Texture *textPlayHover{ SDL_CreateTextureFromSurface(m_renderer,tmpSurf) };// Color 2
-
-	SDL_FreeSurface(tmpSurf);
-	TTF_CloseFont(font);
-	//
-
-	//Sound 
-	TTF_Font *font{ TTF_OpenFont("../../res/ttf/saiyan.ttf",80) };
-	if (font == nullptr) throw "No es pot inicialitzar TTF_Font";
-
-	SDL_Surface *tmpSurf{ TTF_RenderText_Blended(font, "Myfirst SDL Game", SDL_Color{ 255,150,0,155 }) };
-	if (tmpSurf == nullptr)throw "No es pot crear SDL Surface";
-	SDL_Texture *textTexture(SDL_CreateTextureFromSurface(m_renderer, tmpSurf));//	Color 1
-
-	SDL_Rect textRect{ 100,50,tmpSurf->w,tmpSurf->h }; //Location
-
-	tmpSurf = { TTF_RenderText_Blended(font,"Myfirst SDL Game", SDL_Color{ 100,100,50,155 }) };
-	if (tmpSurf == nullptr)throw "No es pot crear SDL Surface";
-	SDL_Texture *textPlayHover{ SDL_CreateTextureFromSurface(m_renderer,tmpSurf) };// Color 2
-
-	SDL_FreeSurface(tmpSurf);
-	TTF_CloseFont(font);
-	//
-
-
-	SDL_Texture *textAuxTitle;
+	SDL_Texture *textureAuxTitle,*textureAuxPlay,*textureAuxSound,*textureAuxExit;
 	
 
 
 	Types:: vec2 mousePos = { 0,0 };
-	Types::myRect newRect = { textRect.x,textRect.y,textRect.w,textRect.h };
+	Types::myRect newRectTitle = { textRectTitle.x,textRectTitle.y,textRectTitle.w,textRectTitle.h };
+	Types::myRect newRectPlay = { textRectPlay.x,textRectPlay.y,textRectPlay.w,textRectPlay.h };
+	Types::myRect newRectSound = { textRectSound.x,textRectSound.y,textRectSound.w,textRectSound.h };
+	Types::myRect newRectExit = { textRectExit.x,textRectExit.y,textRectExit.w,textRectExit.h };
 
 	// --- AUDIO ---
 
@@ -166,19 +166,48 @@ int main(int, char*[])
 			}
 		}
 
-		// UPDATE
-		textAuxTitle = PlayerCollisions::ChecKCollisionHover(mousePos, newRect) ? textPlayHover : textTexture;
+		// ****************************************************************************************UPDATE
+		textureAuxTitle = PlayerCollisions::ChecKCollision(mousePos, newRectTitle) ? textureTitleHover : titleTexture;
+		textureAuxPlay = PlayerCollisions::ChecKCollision(mousePos, newRectPlay) ? texturePlayHover : playTexture;
+		textureAuxExit = PlayerCollisions::ChecKCollision(mousePos, newRectExit) ? textureExitHover : exitTexture;
+		if (Mix_PlayingMusic()) {
+			if (!Mix_PausedMusic()) {
+				textureAuxSound = PlayerCollisions::ChecKCollision(mousePos, newRectExit) ? textureSoundOnHover : soundOnTexture;
+				if (click&&PlayerCollisions::ChecKCollision(mousePos,newRectSound))
+					Mix_PauseMusic();
+			}
+			else {
+				textureAuxSound = PlayerCollisions::ChecKCollision(mousePos, newRectExit) ? textureSoundOffHover : soundOffTexture;
+				if (click&&PlayerCollisions::ChecKCollision(mousePos, newRectSound))
+					Mix_ReanudeMusic();
+			}
+
+		}
 
 
-		// DRAW
+
+
+		// ****************************************************************************************DRAW
 		SDL_RenderClear(m_renderer);
 		//Background
 		SDL_RenderCopy(m_renderer, bgTexture, nullptr, &bgRect);
 		//player
 		SDL_RenderCopy(m_renderer, playerTexture, nullptr, &playerRect);
-		//text
-		SDL_RenderCopy(m_renderer, textAuxTitle, nullptr, &textRect);
 
+		//text
+		//*********************************
+		SDL_RenderCopy(m_renderer, textureAuxTitle, nullptr, &textRectTitle);//Title
+		//*********************************
+		//*********************************
+		SDL_RenderCopy(m_renderer, textureAuxPlay, nullptr, &textRectPlay);//Play
+		//*********************************
+		//*********************************
+		SDL_RenderCopy(m_renderer, textureAuxSound, nullptr, &textRectSound);//Sound
+		//*********************************
+		//*********************************
+		SDL_RenderCopy(m_renderer, textureAuxExit, nullptr, &textRectExit);//exit
+		//*********************************
+		//
 
 		SDL_RenderPresent(m_renderer);
 
@@ -187,7 +216,11 @@ int main(int, char*[])
 	// --- DESTROY ---
 	SDL_DestroyTexture(bgTexture);
 	SDL_DestroyTexture(playerTexture);
-	SDL_DestroyTexture(textTexture);
+	SDL_DestroyTexture(textureAuxTitle);
+	SDL_DestroyTexture(textureAuxPlay);
+	SDL_DestroyTexture(textureAuxSound);
+	SDL_DestroyTexture(textureAuxExit);
+
 
 	IMG_Quit();
 	TTF_Quit();
