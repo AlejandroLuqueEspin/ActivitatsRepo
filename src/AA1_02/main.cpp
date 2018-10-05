@@ -2,6 +2,7 @@
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 #include "tipos.h"
+#include "SDL_mixer.h"
 #include "Collisions.h"
 #include <exception>
 #include <iostream>
@@ -38,6 +39,9 @@ int main(int, char*[])
 	if (TTF_Init() != 0)throw "No es pot inicialitzar SDL_ttf";
 
 	//-->SDL_Mix
+	const Uint8 mixFlags{MIX_INIT_MP3};
+	if (!(Mix_Init(mixFlags)&mixFlags))throw "error init sdl mixer";
+
 
 	// --- SPRITES ---
 		//Background
@@ -96,7 +100,7 @@ int main(int, char*[])
 	//
 
 	//*********************Sound 
-	SDL_Rect textRectSound{ 100,250,tmpSurf->w,tmpSurf->h }; //Location
+	SDL_Rect textRectSound{ 100,350,tmpSurf->w,tmpSurf->h }; //Location
 	//*******************************Sound_off
 	tmpSurf = TTF_RenderText_Blended(font, "Sound off", SDL_Color{ 255,150,0,155 });
 	if (tmpSurf == nullptr)throw "No es pot crear SDL Surface";
@@ -131,7 +135,12 @@ int main(int, char*[])
 	Types::myRect newRectExit = { textRectExit.x,textRectExit.y,textRectExit.w,textRectExit.h };
 
 	// --- AUDIO ---
+	if (Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, 2, 1024) == -1)
+		throw "No es pot inicializar SLD_MIXER";
 
+	Mix_Music *soundtrack(Mix_LoadMUS("../../res/au/mainTheme.mp3"));
+	Mix_VolumeMusic(MIX_MAX_VOLUME / 2);
+	Mix_PlayMusic(soundtrack,-1);
 	// --- GAME LOOP ---
 	SDL_Event event;
 	bool click = false;
@@ -173,16 +182,18 @@ int main(int, char*[])
 		if (Mix_PlayingMusic()) {
 			if (!Mix_PausedMusic()) {
 				textureAuxSound = PlayerCollisions::ChecKCollision(mousePos, newRectExit) ? textureSoundOnHover : soundOnTexture;
-				if (click&&PlayerCollisions::ChecKCollision(mousePos,newRectSound))
+				if (click&&PlayerCollisions::ChecKCollision(mousePos, newRectSound))
 					Mix_PauseMusic();
 			}
 			else {
 				textureAuxSound = PlayerCollisions::ChecKCollision(mousePos, newRectExit) ? textureSoundOffHover : soundOffTexture;
 				if (click&&PlayerCollisions::ChecKCollision(mousePos, newRectSound))
-					Mix_ReanudeMusic();
+					Mix_ResumeMusic();
 			}
 
 		}
+		else
+			textureAuxSound = soundOffTexture;
 
 
 
@@ -214,14 +225,14 @@ int main(int, char*[])
 	}
 
 	// --- DESTROY ---
-	SDL_DestroyTexture(bgTexture);
+	/*SDL_DestroyTexture(bgTexture);
 	SDL_DestroyTexture(playerTexture);
 	SDL_DestroyTexture(textureAuxTitle);
 	SDL_DestroyTexture(textureAuxPlay);
 	SDL_DestroyTexture(textureAuxSound);
 	SDL_DestroyTexture(textureAuxExit);
-
-
+	*/
+	Mix_Quit();
 	IMG_Quit();
 	TTF_Quit();
 	SDL_DestroyRenderer(m_renderer);
