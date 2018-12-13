@@ -7,6 +7,7 @@
 #include <exception>
 #include <iostream>
 #include <string>
+#include<time.h>
 
 //Game general information
 #define SCREEN_WIDTH 800
@@ -15,8 +16,20 @@
 #define W 350
 #define H 189
 
-const int FPS = 130;
+const int FPS = 60;
 const int DELAY_TIME = 1000.0f / FPS;
+
+void IncPoints(int frameTimeAnimNum, SDL_Rect numSpriteRect,SDL_Rect numSpriteRect2, int frameWidthNum)
+{
+	numSpriteRect.x += frameWidthNum;
+	frameTimeAnimNum++;
+
+	if (frameTimeAnimNum > 10) {
+		frameTimeAnimNum = 0;
+		numSpriteRect.x = 0;
+		numSpriteRect2.x += frameWidthNum;
+	}
+}
 
 int main(int, char*[])
 {
@@ -60,7 +73,7 @@ int main(int, char*[])
 	//--------------------------------------Player 
 	SDL_Texture *playerTexture{ IMG_LoadTexture(m_renderer,"../../res/img/kintoun.png") };
 	SDL_Rect playerRect{ 0,0,350,189 };
-
+	int w, h;
 
 
 	//---------------------------------->Animated Sprite ---
@@ -178,8 +191,16 @@ int main(int, char*[])
 	Mix_PlayMusic(soundtrack,-1);
 
 	//--- TIME ---
-	Uint32 frameStart, frameTime;
+	Uint32 frameStart, frameTime,actualTime,startTime;
+	clock_t lastTime = clock();
+	float deltaTime, timeDown;
+	timeDown = 60;
+	deltaTime = 0;
 
+	std::string timeDisplayable;
+	SDL_Surface *timeDisplay{ TTF_RenderText_Blended(font,timeDisplayable.c_str(),SDL_Color {255, 255, 255}) };
+	SDL_Texture *texturePoints{ SDL_CreateTextureFromSurface(m_renderer,timeDisplay) };
+	SDL_Rect pointsRect { SCREEN_WIDTH / 2,0,SCREEN_WIDTH / 6,SCREEN_WIDTH / 6 };
 	//----------------------------------------Collisions---------------------------
 	//--------------------------------------Sky
 	SDL_Rect skyRect{ 0,0,SCREEN_WIDTH ,SCREEN_HEIGHT / 5 };
@@ -199,10 +220,39 @@ int main(int, char*[])
 	SDL_Rect coinRect1{ rand() % (SCREEN_WIDTH - playerAnimPosition.w) + 10, rand() % (SCREEN_HEIGHT - SCREEN_HEIGHT / 5 - playerAnimPosition.h) + SCREEN_HEIGHT / 5 ,40,40 };
 	SDL_Rect coinRect2{ rand() % (SCREEN_WIDTH - playerAnimPosition.w) + 10, rand() % (SCREEN_HEIGHT - SCREEN_HEIGHT / 5 - playerAnimPosition.h) + SCREEN_HEIGHT / 5 ,40,40 };
 
+	//CounterPoints
+	SDL_Texture *pointsTexture{ IMG_LoadTexture(m_renderer,"../../res/img/num.png") };
+	SDL_Rect firtsNumPos, secondNumPos,numSpriteRect, numSpriteRect2;
+	int textNumWidth, textNumHeight, frameNumWidth, frameNumHeight;
+	SDL_QueryTexture(pointsTexture, NULL, NULL, &textNumWidth, &textNumHeight);
+
+	frameNumWidth = textNumWidth / 10;
+	frameNumHeight = textNumHeight / 1;
+
+	firtsNumPos = { 0,0,50,50 };
+	secondNumPos = { 50,0,50,50 };
+
+	numSpriteRect ={ 0,0, frameNumWidth,frameNumHeight};
+	numSpriteRect2 = { 0,0, frameNumWidth,frameNumHeight};
+	int frameTimeAnimNum = 0;
+
+	//Playr2
+	SDL_Rect firtsNumPosP2, secondNumPosP2, numSpriteRectP2, numSpriteRect2P2;
+
+	firtsNumPosP2 = { SCREEN_WIDTH-50,0,50,50 };
+	secondNumPosP2 = { SCREEN_WIDTH-100,0,50,50 };
+
+	numSpriteRectP2 = { 0,0, frameNumWidth,frameNumHeight };
+	numSpriteRect2P2 = { 0,0, frameNumWidth,frameNumHeight };
+
+	int frameTimeAnimNumP2 = 0;
+
+	//function
 
 
 	// ------------------------------------------------------------ GAME LOOP ---
-	frameStart = SDL_GetTicks();
+	
+	startTime= SDL_GetTicks();
 
 	SDL_Event event;
 	bool click = false;
@@ -213,7 +263,12 @@ int main(int, char*[])
 	int points1, points2;
 	points1 = points2 = 0;
 
+	bool aPressed, sPressed, dPressed, wPressed, upPressed, downPressed, leftPressed, rightPressed;
+	aPressed= sPressed= dPressed= wPressed= upPressed= downPressed= leftPressed= rightPressed = false;
+
 	while (isRunning) {
+		frameStart = SDL_GetTicks();
+
 
 		// HANDLE EVENTS
 		while (SDL_PollEvent(&event)) {
@@ -227,27 +282,33 @@ int main(int, char*[])
 				if (event.key.keysym.sym == SDLK_ESCAPE) isRunning = false;
 
 				//Player1
-				if (event.key.keysym.sym == SDLK_a) { playerAnimPosition.x -= 5; }
-				else if (event.key.keysym.sym == SDLK_w) { playerAnimPosition.y -= 5; }
-				else if (event.key.keysym.sym == SDLK_s) { playerAnimPosition.y += 5; }
-				else if (event.key.keysym.sym == SDLK_d) { playerAnimPosition.x += 5; }
+				if (event.key.keysym.sym == SDLK_a)  aPressed = true ;
+				else if (event.key.keysym.sym == SDLK_w)  wPressed = true ;
+				else if (event.key.keysym.sym == SDLK_s) sPressed = true ;
+				else if (event.key.keysym.sym == SDLK_d)  dPressed = true ;
 
 				//Player2
-				if (event.key.keysym.sym == SDLK_LEFT) { playerAnimPosition2.x -= 5; }
-				else if (event.key.keysym.sym == SDLK_UP) { playerAnimPosition2.y -= 5; }
-				else if (event.key.keysym.sym == SDLK_DOWN) { playerAnimPosition2.y += 5; }
-				else if (event.key.keysym.sym == SDLK_RIGHT) { playerAnimPosition2.x += 5; }
+				if (event.key.keysym.sym == SDLK_LEFT) leftPressed = true;
+				else if (event.key.keysym.sym == SDLK_UP) upPressed = true;
+				else if (event.key.keysym.sym == SDLK_DOWN) downPressed = true;
+				else if (event.key.keysym.sym == SDLK_RIGHT) rightPressed = true;
 
 				break;
 
+			case SDL_KEYUP:
+				//Player1
+				if (event.key.keysym.sym == SDLK_a)  aPressed = false;
+				else if (event.key.keysym.sym == SDLK_w)  wPressed = false;
+				else if (event.key.keysym.sym == SDLK_s) sPressed = false;
+				else if (event.key.keysym.sym == SDLK_d)  dPressed = false;
+
+				//Player2
+				if (event.key.keysym.sym == SDLK_LEFT) leftPressed = false;
+				else if (event.key.keysym.sym == SDLK_UP) upPressed = false;
+				else if (event.key.keysym.sym == SDLK_DOWN) downPressed = false;
+				else if (event.key.keysym.sym == SDLK_RIGHT) rightPressed = false;
+
 			case SDL_MOUSEMOTION:
-				int w, h;
-				SDL_QueryTexture(playerTexture, NULL, NULL, &w, &h);
-
-				playerRect.x = event.motion.x - W / 2;
-				playerRect.y = event.motion.y - H / 2;
-
-				//Actualiza la x e y
 				mousePos.x = event.motion.x;
 				mousePos.y = event.motion.y;
 
@@ -266,10 +327,11 @@ int main(int, char*[])
 
 		// ****************************************************************************************UPDATE
 
-		frameTime = SDL_GetTicks() - frameStart;
-		if (frameTime < DELAY_TIME) {
-			SDL_Delay((int)(DELAY_TIME - frameTime));
-		}
+		
+		SDL_QueryTexture(playerTexture, NULL, NULL, &w, &h);
+
+		playerRect.x = event.motion.x - W / 2;
+		playerRect.y = event.motion.y - H / 2;
 
 		frameTimeAnim++;
 		if (FPS / frameTimeAnim <= 9) {
@@ -280,6 +342,44 @@ int main(int, char*[])
 		}
 
 		if (isOnPlay) {
+
+			timeDisplayable = std::to_string(timeDown);
+
+			//pLAYERmOV
+			if (dPressed)
+				playerAnimPosition.x += 5;
+			if(sPressed)
+				playerAnimPosition.y+=5;
+			if (wPressed)
+				playerAnimPosition.y -= 5;
+			if (aPressed)
+				playerAnimPosition.x -= 5;
+
+			//player2
+			if (rightPressed)
+				playerAnimPosition2.x += 5;
+			if (downPressed)
+				playerAnimPosition2.y += 5;
+			if (upPressed)
+				playerAnimPosition2.y -= 5;
+			if (leftPressed)
+				playerAnimPosition2.x -= 5;
+
+
+			//Time
+			deltaTime = clock() - lastTime;
+			lastTime = clock();
+			deltaTime /= CLOCKS_PER_SEC;
+			timeDown -= deltaTime;
+			std::cout << timeDown << std::endl;
+
+			
+
+			if ((int)timeDown == 0) {
+				isOnPlay=false;
+				timeDown = 60;
+			}
+
 			//Playable ground
 			if (PlayerCollisions::CheckCollisionSprites(playerAnimPosition, skyRect))
 				playerAnimPosition.y = skyRect.h;
@@ -304,21 +404,29 @@ int main(int, char*[])
 				points1++;
 				coinRect1.x = rand() % (SCREEN_WIDTH - playerAnimPosition.w) + 10;
 				coinRect1.y = rand() % (SCREEN_HEIGHT - SCREEN_HEIGHT / 5 - playerAnimPosition.h) + SCREEN_HEIGHT / 5;
+				IncPoints(frameTimeAnimNum, numSpriteRect, numSpriteRect2, frameNumWidth);
+
 			}
 			if (PlayerCollisions::CheckCollisionCoin(playerAnimPosition, coinRect2)) {
 				points1++;
 				coinRect2.x = rand() % (SCREEN_WIDTH - playerAnimPosition.w) + 10;
 				coinRect2.y = rand() % (SCREEN_HEIGHT - SCREEN_HEIGHT / 5 - playerAnimPosition.h) + SCREEN_HEIGHT / 5;
+				IncPoints(frameTimeAnimNum, numSpriteRect, numSpriteRect2, frameNumWidth);
+
 			}
 			if (PlayerCollisions::CheckCollisionCoin(playerAnimPosition2, coinRect1)) {
 				points2++;
 				coinRect1.x = rand() % (SCREEN_WIDTH - playerAnimPosition2.w) + 10;
 				coinRect1.y = rand() % (SCREEN_HEIGHT - SCREEN_HEIGHT / 5 - playerAnimPosition.h) + SCREEN_HEIGHT / 5;
+				IncPoints(frameTimeAnimNumP2, numSpriteRectP2, numSpriteRect2P2, frameNumWidth);
+
 			}
 			if (PlayerCollisions::CheckCollisionCoin(playerAnimPosition2, coinRect2)) {
 				points2++;
 				coinRect2.x = rand() % (SCREEN_WIDTH - playerAnimPosition2.w) + 10;
 				coinRect2.y = rand() % (SCREEN_HEIGHT - SCREEN_HEIGHT / 5 - playerAnimPosition.h) + SCREEN_HEIGHT / 5;
+				IncPoints(frameTimeAnimNumP2, numSpriteRectP2, numSpriteRect2P2, frameNumWidth);
+
 			}
 		}
 		else if (!isOnPlay) {
@@ -356,7 +464,15 @@ int main(int, char*[])
 				isOnPlay = true;
 			}
 
+
+
 		}
+
+		frameTime = SDL_GetTicks() - frameStart;
+		if (frameTime < DELAY_TIME) {
+			SDL_Delay((int)(DELAY_TIME - frameTime));
+		}
+
 
 
 
@@ -376,6 +492,16 @@ int main(int, char*[])
 			//Coin
 			SDL_RenderCopy(m_renderer, coinTexture, nullptr, &coinRect1);
 			SDL_RenderCopy(m_renderer, coinTexture, nullptr, &coinRect2);
+
+			//Points
+			SDL_RenderCopy(m_renderer, pointsTexture, &numSpriteRect, &firtsNumPos);
+			SDL_RenderCopy(m_renderer, pointsTexture, &numSpriteRect2, &secondNumPos);
+
+			SDL_RenderCopy(m_renderer, pointsTexture, &numSpriteRectP2, &firtsNumPosP2);
+			SDL_RenderCopy(m_renderer, pointsTexture, &numSpriteRect2P2, &secondNumPosP2);
+
+			SDL_RenderCopy(m_renderer, texturePoints, nullptr, &pointsRect);//Title
+
 		}
 		else if (!isOnPlay) {
 			//Background
@@ -412,6 +538,11 @@ int main(int, char*[])
 		SDL_DestroyTexture(soundOnTexture);
 		SDL_DestroyTexture(soundOffTexture);
 		SDL_DestroyTexture(exitTexture);
+		SDL_DestroyTexture(bgCastleTexture);
+		SDL_DestroyTexture(playerAnimTexture);
+		SDL_DestroyTexture(coinTexture);
+
+
 
 
 		Mix_Quit();
@@ -425,4 +556,5 @@ int main(int, char*[])
 
 		return 0;
 	}
-	
+
+

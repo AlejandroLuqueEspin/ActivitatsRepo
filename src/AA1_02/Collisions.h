@@ -1,8 +1,7 @@
 #pragma once
 #include "tipos.h"
 #include <iostream>
-#define SCREEN_WIDTH 800
-#define SCREEN_HEIGHT 600
+
 
 inline namespace PlayerCollisions {
 	bool ChecKCollision(Types::vec2 vec2, SDL_Rect rect) {
