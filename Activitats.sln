@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AA1_01", "src\A01\A01.vcxpr
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Arkanoid", "src\Arkanoid\Arkanoid.vcxproj", "{71B331DC-319F-4BDE-B441-64BBFFC2A9D8}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AA1_08", "src\AA1_08\AA1_08.vcxproj", "{28559D7D-6D5B-487E-BCDD-A737BAE93947}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -41,6 +43,14 @@ Global
 		{71B331DC-319F-4BDE-B441-64BBFFC2A9D8}.Release|x64.Build.0 = Release|x64
 		{71B331DC-319F-4BDE-B441-64BBFFC2A9D8}.Release|x86.ActiveCfg = Release|Win32
 		{71B331DC-319F-4BDE-B441-64BBFFC2A9D8}.Release|x86.Build.0 = Release|Win32
+		{28559D7D-6D5B-487E-BCDD-A737BAE93947}.Debug|x64.ActiveCfg = Debug|x64
+		{28559D7D-6D5B-487E-BCDD-A737BAE93947}.Debug|x64.Build.0 = Debug|x64
+		{28559D7D-6D5B-487E-BCDD-A737BAE93947}.Debug|x86.ActiveCfg = Debug|Win32
+		{28559D7D-6D5B-487E-BCDD-A737BAE93947}.Debug|x86.Build.0 = Debug|Win32
+		{28559D7D-6D5B-487E-BCDD-A737BAE93947}.Release|x64.ActiveCfg = Release|x64
+		{28559D7D-6D5B-487E-BCDD-A737BAE93947}.Release|x64.Build.0 = Release|x64
+		{28559D7D-6D5B-487E-BCDD-A737BAE93947}.Release|x86.ActiveCfg = Release|Win32
+		{28559D7D-6D5B-487E-BCDD-A737BAE93947}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
