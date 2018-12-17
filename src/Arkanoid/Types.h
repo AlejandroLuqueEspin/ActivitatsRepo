@@ -8,7 +8,7 @@ inline namespace Types {
 
 	struct vec2 {
 		int x, y;
-	};
+	}; 
 
 	struct Text {
 		std::string text;
@@ -23,4 +23,5 @@ inline namespace Types {
 	};
 
 	enum GameState {Game,Ranking,Menu,SplashScreen};
+	enum PowerStates {SpeedUp, ExtraLenght, MiniLenght};
 }
