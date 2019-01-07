@@ -30,10 +30,19 @@ void PowerUp::Draw(Renderer * myRenderer)
 {
 	//las texturas las cargará el game.
 	if (type == extra)
+	{
+		myRenderer->PushImage("Power_0", { powerUpPosition.x,powerUpPosition.y,powerUpPosition.w,powerUpPosition.h });
+	}
 		//carga una textura 
 	else if (type == mini)
+	{
+		myRenderer->PushImage("Power_1", { powerUpPosition.x,powerUpPosition.y,powerUpPosition.w,powerUpPosition.h });
+	}
 		//otra
 	else if (type == speed)
+	{
+		myRenderer->PushImage("Power_2", { powerUpPosition.x,powerUpPosition.y,powerUpPosition.w,powerUpPosition.h });
+	}
 		//u otra
 
 

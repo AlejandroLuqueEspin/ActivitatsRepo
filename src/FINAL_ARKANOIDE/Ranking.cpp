@@ -18,14 +18,10 @@ void Ranking::LoadScores()
 
 
 
-
-
-
 }
 
 Ranking::Ranking()
 {
-
 	exitButton= Button({ "EXIT", "bEXIT", yellow }, { (SCREEN_WIDTH / 3) + 50, (SCREEN_HEIGHT / 5) + 200, buttonSize.x, buttonSize.y }, "bEXIT", "bEXIT_h");
 
 }

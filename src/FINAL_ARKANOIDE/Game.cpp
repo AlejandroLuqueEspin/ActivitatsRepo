@@ -4,13 +4,18 @@
 void Game::loadSettings(Renderer * myRenderer)
 {
 	srand(time(NULL));
-
+	//********************************BACKGROUND*************************
 	myRenderer->LoadTexture("Background", "../../res/img/Backgroung.jpg");
 	myRenderer->LoadTexture("Bricks", "../../res/img/bricks.jpg");
+
+	//********************************PLAYERS*************************
 	myRenderer->LoadTextureText("SUNSPIRE", player1->scoreText);
 	myRenderer->LoadTextureText("SUNSPIRE", player2->scoreText);
 
-
+	//******************************LOAD_POWER_UPS*******************
+	myRenderer->LoadTexture("Power_0", "../../res/img/powerUp_1.jpg");
+	myRenderer->LoadTexture("Power_1", "../../res/img/powerUp_2.jpg");
+	myRenderer->LoadTexture("Power_2", "../../res/img/powerUp_3.jpg");
 
 	//*********************************LOAD_XML***********************
 	rapidxml::xml_document<> config;
