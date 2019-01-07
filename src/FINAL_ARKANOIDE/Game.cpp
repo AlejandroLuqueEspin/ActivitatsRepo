@@ -203,9 +203,11 @@ void Game::Update(Controller * inputs)
 						hud.Update(player1->scoreText, player2->scoreText);
 						hud.Update(player1->scoreText, player2->scoreText);
 						//**********************Spawn_PowerUp****************************************************
-						if(rand()%100+1<20)
+						powerUpsVector.push_back(new PowerUp(lastPlayerCollision, { mapBlock[i][j]->blockCollision.x,mapBlock[i][j]->blockCollision.y }));
+					
+						if (rand() % 100 + 1 < 20)
 						{
-							powerUpsVector.push_back(new PowerUp(lastPlayerCollision,{ mapBlock[i][j]->blockCollision.x,mapBlock[i][j]->blockCollision.y }));
+
 						}
 						//***************************************************************************************
 					}
@@ -223,14 +225,20 @@ void Game::Update(Controller * inputs)
 			}
 		}
 		//*******************CheckPowerUpLife************************
-		if (powerUpsVector.size != 0)
+		if (powerUpsVector.size() != 0)
 		{
 			for (std::vector<PowerUp*>::iterator it = powerUpsVector.begin(); it != powerUpsVector.end(); ++it)
 			{
-				if(*it.death==true)//si it is death, borralo del vector
-				{ }
-				else
-				{ }//Update it
+				if((*it)->death==true)//si it is death, borralo del vector
+				{
+					powerUpsVector.erase(it);
+					if (powerUpsVector.size() != 0)
+						break;
+				}
+				else //Update it
+				{
+					(*it)->Update();
+				}
 			}
 		}
 
