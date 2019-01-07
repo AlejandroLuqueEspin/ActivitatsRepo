@@ -15,141 +15,147 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\G33_AA2-2\Ball.h">
+    <ClInclude Include="Ball.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\G33_AA2-2\Block.h">
+    <ClInclude Include="Block.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\G33_AA2-2\Button.h">
+    <ClInclude Include="Button.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\G33_AA2-2\Collisions.h">
+    <ClInclude Include="Collisions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\G33_AA2-2\Constants.h">
+    <ClInclude Include="Constants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\G33_AA2-2\Controller.h">
+    <ClInclude Include="Controller.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\G33_AA2-2\DinText.h">
+    <ClInclude Include="DinText.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\G33_AA2-2\FixBlock.h">
+    <ClInclude Include="FixBlock.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\G33_AA2-2\Game.h">
+    <ClInclude Include="Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\G33_AA2-2\GameManager.h">
+    <ClInclude Include="GameManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\G33_AA2-2\HeavyBlock.h">
+    <ClInclude Include="HeavyBlock.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\G33_AA2-2\HeavyBrick.h">
+    <ClInclude Include="HeavyBrick.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\G33_AA2-2\HUD.h">
+    <ClInclude Include="HUD.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\G33_AA2-2\Menu.h">
+    <ClInclude Include="Menu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\G33_AA2-2\NoneBlock.h">
+    <ClInclude Include="NoneBlock.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\G33_AA2-2\NormalBlock.h">
+    <ClInclude Include="NormalBlock.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\G33_AA2-2\Player.h">
+    <ClInclude Include="Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\G33_AA2-2\Ranking.h">
+    <ClInclude Include="PowerUp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\G33_AA2-2\Renderer.h">
+    <ClInclude Include="Ranking.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\G33_AA2-2\Scene.h">
+    <ClInclude Include="Renderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\G33_AA2-2\SplashScreen.h">
+    <ClInclude Include="Scene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\G33_AA2-2\Types.h">
+    <ClInclude Include="SplashScreen.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\G33_AA2-2\Utilities.h">
+    <ClInclude Include="Types.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\G33_AA2-2\Vec2.h">
+    <ClInclude Include="Utilities.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Vec2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\G33_AA2-2\Ball.cpp">
+    <ClCompile Include="Ball.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\G33_AA2-2\Block.cpp">
+    <ClCompile Include="Block.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\G33_AA2-2\Button.cpp">
+    <ClCompile Include="Button.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\G33_AA2-2\Collisions.cpp">
+    <ClCompile Include="Collisions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\G33_AA2-2\Controller.cpp">
+    <ClCompile Include="Controller.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\G33_AA2-2\DinText.cpp">
+    <ClCompile Include="DinText.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\G33_AA2-2\FixBlock.cpp">
+    <ClCompile Include="FixBlock.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\G33_AA2-2\Game.cpp">
+    <ClCompile Include="Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\G33_AA2-2\GameManager.cpp">
+    <ClCompile Include="GameManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\G33_AA2-2\HeavyBlock.cpp">
+    <ClCompile Include="HeavyBlock.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\G33_AA2-2\HUD.cpp">
+    <ClCompile Include="HUD.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\G33_AA2-2\main.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\G33_AA2-2\Menu.cpp">
+    <ClCompile Include="Menu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\G33_AA2-2\NoneBlock.cpp">
+    <ClCompile Include="NoneBlock.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\G33_AA2-2\NormalBlock.cpp">
+    <ClCompile Include="NormalBlock.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\G33_AA2-2\Player.cpp">
+    <ClCompile Include="Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\G33_AA2-2\Ranking.cpp">
+    <ClCompile Include="PowerUp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\G33_AA2-2\Renderer.cpp">
+    <ClCompile Include="Ranking.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\G33_AA2-2\Scene.cpp">
+    <ClCompile Include="Renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\G33_AA2-2\SplashScreen.cpp">
+    <ClCompile Include="Scene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\G33_AA2-2\Vec2.cpp">
+    <ClCompile Include="SplashScreen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Vec2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
