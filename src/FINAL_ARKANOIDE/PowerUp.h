@@ -5,14 +5,14 @@
 
 class PowerUp
 {
-	bool death = false;
+	
 	int powerUpDirection;
 	int velocity=1;
 	PowerUpType type;
 	float lastTime, actualTime, TimeDown, deltaTime;
 
 public:
-	
+	bool death = false;
 	Rect powerUpPosition;
 
 

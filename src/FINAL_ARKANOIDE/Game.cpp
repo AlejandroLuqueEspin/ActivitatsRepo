@@ -223,7 +223,16 @@ void Game::Update(Controller * inputs)
 			}
 		}
 		//*******************CheckPowerUpLife************************
-
+		if (powerUpsVector.size != 0)
+		{
+			for (std::vector<PowerUp*>::iterator it = powerUpsVector.begin(); it != powerUpsVector.end(); ++it)
+			{
+				if(*it.death==true)//si it is death, borralo del vector
+				{ }
+				else
+				{ }//Update it
+			}
+		}
 
 
 		//***********************************************************
