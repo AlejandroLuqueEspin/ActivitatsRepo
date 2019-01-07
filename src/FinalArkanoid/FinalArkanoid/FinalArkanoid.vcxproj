@@ -20,8 +20,8 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{73754476-D132-484D-B68B-A1EF2873284C}</ProjectGuid>
-    <RootNamespace>G33AA22</RootNamespace>
+    <ProjectGuid>{0AF07FB0-7E8F-487F-8B7B-9DA4AEB81C29}</ProjectGuid>
+    <RootNamespace>FinalArkanoid</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -58,23 +58,19 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\..\dep\config.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\..\dep\config.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\..\dep\config.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\..\dep\config.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup />
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
@@ -82,7 +78,7 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
@@ -119,52 +115,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Ball.h" />
-    <ClInclude Include="Block.h" />
-    <ClInclude Include="Button.h" />
-    <ClInclude Include="Collisions.h" />
-    <ClInclude Include="Constants.h" />
-    <ClInclude Include="Controller.h" />
-    <ClInclude Include="DinText.h" />
-    <ClInclude Include="FixBlock.h" />
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="GameManager.h" />
-    <ClInclude Include="HeavyBlock.h" />
-    <ClInclude Include="HUD.h" />
-    <ClInclude Include="Menu.h" />
-    <ClInclude Include="NoneBlock.h" />
-    <ClInclude Include="NormalBlock.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="Ranking.h" />
-    <ClInclude Include="Renderer.h" />
-    <ClInclude Include="Scene.h" />
-    <ClInclude Include="SplashScreen.h" />
-    <ClInclude Include="Types.h" />
-    <ClInclude Include="Utilities.h" />
-    <ClInclude Include="Vec2.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Ball.cpp" />
-    <ClCompile Include="Block.cpp" />
-    <ClCompile Include="Button.cpp" />
-    <ClCompile Include="Collisions.cpp" />
-    <ClCompile Include="Controller.cpp" />
-    <ClCompile Include="DinText.cpp" />
-    <ClCompile Include="FixBlock.cpp" />
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="GameManager.cpp" />
-    <ClCompile Include="HeavyBlock.cpp" />
-    <ClCompile Include="HUD.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Menu.cpp" />
-    <ClCompile Include="NoneBlock.cpp" />
-    <ClCompile Include="NormalBlock.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Ranking.cpp" />
-    <ClCompile Include="Renderer.cpp" />
-    <ClCompile Include="Scene.cpp" />
-    <ClCompile Include="SplashScreen.cpp" />
-    <ClCompile Include="Vec2.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

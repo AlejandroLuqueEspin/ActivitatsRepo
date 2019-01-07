@@ -39,6 +39,13 @@ void GameManager::Update(Renderer* myRenderer, bool &isRunning)
 			actualScene = new SplashScreen();
 			actualScene->sceneName = SPLASHSCREEN;
 			break;
+		case RANKING:
+			std::cout << "jodeeer" << std::endl;
+			delete actualScene;
+			myRenderer->ClearScene();
+			actualScene = new Ranking();
+			actualScene->sceneName = RANKING;
+			break;
 		default:
 			isRunning = false;
 			return;

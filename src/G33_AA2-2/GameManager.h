@@ -6,11 +6,10 @@
 #include "Menu.h"
 #include "Game.h"
 #include "SplashScreen.h"
-
+#include "Ranking.h"
 
 class GameManager
 {
-
 	gameState lastScene;
 	Controller *gameInputs;
 	Scene *actualScene;

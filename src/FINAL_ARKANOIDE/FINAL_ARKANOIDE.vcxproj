@@ -20,8 +20,8 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{73754476-D132-484D-B68B-A1EF2873284C}</ProjectGuid>
-    <RootNamespace>G33AA22</RootNamespace>
+    <ProjectGuid>{90DA1E64-EAA4-4497-9B4B-7E04CA23DEFB}</ProjectGuid>
+    <RootNamespace>FINALARKANOIDE</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -119,52 +119,53 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Ball.h" />
-    <ClInclude Include="Block.h" />
-    <ClInclude Include="Button.h" />
-    <ClInclude Include="Collisions.h" />
-    <ClInclude Include="Constants.h" />
-    <ClInclude Include="Controller.h" />
-    <ClInclude Include="DinText.h" />
-    <ClInclude Include="FixBlock.h" />
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="GameManager.h" />
-    <ClInclude Include="HeavyBlock.h" />
-    <ClInclude Include="HUD.h" />
-    <ClInclude Include="Menu.h" />
-    <ClInclude Include="NoneBlock.h" />
-    <ClInclude Include="NormalBlock.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="Ranking.h" />
-    <ClInclude Include="Renderer.h" />
-    <ClInclude Include="Scene.h" />
-    <ClInclude Include="SplashScreen.h" />
-    <ClInclude Include="Types.h" />
-    <ClInclude Include="Utilities.h" />
-    <ClInclude Include="Vec2.h" />
+    <ClInclude Include="..\G33_AA2-2\Ball.h" />
+    <ClInclude Include="..\G33_AA2-2\Block.h" />
+    <ClInclude Include="..\G33_AA2-2\Button.h" />
+    <ClInclude Include="..\G33_AA2-2\Collisions.h" />
+    <ClInclude Include="..\G33_AA2-2\Constants.h" />
+    <ClInclude Include="..\G33_AA2-2\Controller.h" />
+    <ClInclude Include="..\G33_AA2-2\DinText.h" />
+    <ClInclude Include="..\G33_AA2-2\FixBlock.h" />
+    <ClInclude Include="..\G33_AA2-2\Game.h" />
+    <ClInclude Include="..\G33_AA2-2\GameManager.h" />
+    <ClInclude Include="..\G33_AA2-2\HeavyBlock.h" />
+    <ClInclude Include="..\G33_AA2-2\HeavyBrick.h" />
+    <ClInclude Include="..\G33_AA2-2\HUD.h" />
+    <ClInclude Include="..\G33_AA2-2\Menu.h" />
+    <ClInclude Include="..\G33_AA2-2\NoneBlock.h" />
+    <ClInclude Include="..\G33_AA2-2\NormalBlock.h" />
+    <ClInclude Include="..\G33_AA2-2\Player.h" />
+    <ClInclude Include="..\G33_AA2-2\Ranking.h" />
+    <ClInclude Include="..\G33_AA2-2\Renderer.h" />
+    <ClInclude Include="..\G33_AA2-2\Scene.h" />
+    <ClInclude Include="..\G33_AA2-2\SplashScreen.h" />
+    <ClInclude Include="..\G33_AA2-2\Types.h" />
+    <ClInclude Include="..\G33_AA2-2\Utilities.h" />
+    <ClInclude Include="..\G33_AA2-2\Vec2.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Ball.cpp" />
-    <ClCompile Include="Block.cpp" />
-    <ClCompile Include="Button.cpp" />
-    <ClCompile Include="Collisions.cpp" />
-    <ClCompile Include="Controller.cpp" />
-    <ClCompile Include="DinText.cpp" />
-    <ClCompile Include="FixBlock.cpp" />
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="GameManager.cpp" />
-    <ClCompile Include="HeavyBlock.cpp" />
-    <ClCompile Include="HUD.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Menu.cpp" />
-    <ClCompile Include="NoneBlock.cpp" />
-    <ClCompile Include="NormalBlock.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Ranking.cpp" />
-    <ClCompile Include="Renderer.cpp" />
-    <ClCompile Include="Scene.cpp" />
-    <ClCompile Include="SplashScreen.cpp" />
-    <ClCompile Include="Vec2.cpp" />
+    <ClCompile Include="..\G33_AA2-2\Ball.cpp" />
+    <ClCompile Include="..\G33_AA2-2\Block.cpp" />
+    <ClCompile Include="..\G33_AA2-2\Button.cpp" />
+    <ClCompile Include="..\G33_AA2-2\Collisions.cpp" />
+    <ClCompile Include="..\G33_AA2-2\Controller.cpp" />
+    <ClCompile Include="..\G33_AA2-2\DinText.cpp" />
+    <ClCompile Include="..\G33_AA2-2\FixBlock.cpp" />
+    <ClCompile Include="..\G33_AA2-2\Game.cpp" />
+    <ClCompile Include="..\G33_AA2-2\GameManager.cpp" />
+    <ClCompile Include="..\G33_AA2-2\HeavyBlock.cpp" />
+    <ClCompile Include="..\G33_AA2-2\HUD.cpp" />
+    <ClCompile Include="..\G33_AA2-2\main.cpp" />
+    <ClCompile Include="..\G33_AA2-2\Menu.cpp" />
+    <ClCompile Include="..\G33_AA2-2\NoneBlock.cpp" />
+    <ClCompile Include="..\G33_AA2-2\NormalBlock.cpp" />
+    <ClCompile Include="..\G33_AA2-2\Player.cpp" />
+    <ClCompile Include="..\G33_AA2-2\Ranking.cpp" />
+    <ClCompile Include="..\G33_AA2-2\Renderer.cpp" />
+    <ClCompile Include="..\G33_AA2-2\Scene.cpp" />
+    <ClCompile Include="..\G33_AA2-2\SplashScreen.cpp" />
+    <ClCompile Include="..\G33_AA2-2\Vec2.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
