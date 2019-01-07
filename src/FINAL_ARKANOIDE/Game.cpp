@@ -176,6 +176,7 @@ void Game::Update(Controller * inputs)
 		default:
 			break;
 		}
+		//************************Collision_with_players***************************
 		if (collisions.CheckRectWithRect(ball.ballRect, player1->playerCollider)) {
 			lastPlayerCollision = P1;
 			ball = collisions.CheckCollisionRectBall(player1->playerCollider, ball);
@@ -184,6 +185,9 @@ void Game::Update(Controller * inputs)
 			lastPlayerCollision = P2;
 			ball = collisions.CheckCollisionRectBall(player2->playerCollider, ball);
 		}
+		//************************************************************************
+
+		//************************Collision_with_blocks***************************
 		for (int i = 0; i < 12; i++)
 		{
 			for (int j = 0; j < 11; j++)
@@ -198,15 +202,31 @@ void Game::Update(Controller * inputs)
 						player2->SetScore();
 						hud.Update(player1->scoreText, player2->scoreText);
 						hud.Update(player1->scoreText, player2->scoreText);
+						//**********************Spawn_PowerUp****************************************************
+						if(rand()%100+1<20)
+						{
+							powerUpsVector.push_back(new PowerUp(lastPlayerCollision,{ mapBlock[i][j]->blockCollision.x,mapBlock[i][j]->blockCollision.y }));
+						}
+						//***************************************************************************************
 					}
 					collided = true;
+					//********************get_the closest_blocks_to_see_how_to_rebotar*******************
 					getNeighbourBlocks(i, j);
 					ball = collisions.CheckCollisionBlock(neighboringBlocks, ball);
 					neighboringBlocks.clear();
+					//***********************************************************************************
 				}
+
 				mapBlock[i][j]->Update();
+
+
 			}
 		}
+		//*******************CheckPowerUpLife************************
+
+
+
+		//***********************************************************
 		ball.UpdateMovement();
 		player1->Update(inputs);
 		player2->Update(inputs);

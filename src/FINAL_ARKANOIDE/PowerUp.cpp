@@ -13,8 +13,17 @@ PowerUp::PowerUp(PlayerNum lastPlayer, Vec2 _powerUpPos)
 		powerUpDirection = 1;
 	// se asigna con un random que power up
 	type = (PowerUpType) (rand() % 3);
+	//**********************set_the_timer******************
+	lastTime = clock();
+	actualTime = (lastTime / 1000) - 1;
+	TimeDown = 60;
+	deltaTime = 0;
 }
 
+
+PowerUp::PowerUp()
+{
+}
 
 PowerUp::~PowerUp()
 {
@@ -23,7 +32,15 @@ PowerUp::~PowerUp()
 
 void PowerUp::Update()
 {
-	powerUpPosition.x += powerUpDirection;
+	powerUpPosition.x += powerUpDirection * velocity;
+	deltaTime = clock() - lastTime;
+	lastTime = clock();
+	deltaTime /= CLOCKS_PER_SEC;
+	TimeDown -= deltaTime;
+	actualTime = (lastTime / 1000) - 1;
+	if (actualTime >= 10)//10 segundos
+		death = true;//con esto desde el game sabremos si eliminarlo o no
+	
 }
 
 void PowerUp::Draw(Renderer * myRenderer)

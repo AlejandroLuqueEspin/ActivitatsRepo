@@ -9,8 +9,10 @@
 #include "FixBlock.h"
 #include "HeavyBlock.h"
 #include "NoneBlock.h"
+#include "PowerUp.h"
 #include <fstream>
 #include <sstream>
+#include <vector>
 #include "../../dep/inc/XML/rapidxml.hpp"
 #include "../../dep/inc/XML/rapidxml_iterators.hpp"
 #include "../../dep/inc/XML/rapidxml_print.hpp"
@@ -23,6 +25,7 @@ class Game : public Scene
 	Ball ball;
 	Collisions collisions;
 private:
+	std::vector<PowerUp*> powerUpsVector;
 	Player * player1, *player2;
 	HUD hud;
 	Block *mapBlock[12][11];
