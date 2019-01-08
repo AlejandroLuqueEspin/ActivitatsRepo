@@ -84,6 +84,7 @@ void Game::loadSettings(Renderer * myRenderer)
 	//**************************************************************
 }
 
+
 void Game::getNeighbourBlocks(int i, int j)
 {//it takes the closest blocks ti one, with the quadricular estructure of the array
 	neighboringBlocks.push_back(mapBlock[i][j]->blockCollision);
@@ -119,6 +120,7 @@ void Game::Update(Controller * inputs)
 	bool collided = false;
 	switch (sceneState)
 	{
+
 	case START_GAME:
 		if (inputs->keyboard[(int)inputKeyboard::K_ESC]) sceneName = MENU;
 		else if (inputs->keyboard[(int)inputKeyboard::K_SPACE]) spacePressed = true;
@@ -128,6 +130,7 @@ void Game::Update(Controller * inputs)
 		}
 		break;
 	case RUNNING:
+		//***************************************collision with screen and ball**************
 		switch (collisions.CheckSideCollision(ball.ballRect, gameScreen))
 		{
 		case UP:
@@ -176,6 +179,8 @@ void Game::Update(Controller * inputs)
 		default:
 			break;
 		}
+		//***********************************************************************************
+
 		//************************Collision_with_players***************************
 		if (collisions.CheckRectWithRect(ball.ballRect, player1->playerCollider)) {
 			lastPlayerCollision = P1;
@@ -220,30 +225,26 @@ void Game::Update(Controller * inputs)
 				}
 
 				mapBlock[i][j]->Update();
-
-
 			}
 		}
-		//*******************CheckPowerUpLife************************
-		if (powerUpsVector.size() != 0)
-		{
-			for (std::vector<PowerUp*>::iterator it = powerUpsVector.begin(); it != powerUpsVector.end(); ++it)
+
+		//*************powerUps comprobar sus colisiones y moverlos**************************
+		for (std::vector<PowerUp*>::iterator it = powerUpsVector.begin(); it != powerUpsVector.end(); it++) {
+			Player* aux = (lastPlayerCollision == P1) ? player1 : player2;//comprobar siempre con los 2 players
+			if (collisions.CheckRectWithRect((*it)->powerUpPosition, aux->playerCollider))
 			{
-				if((*it)->death==true)//si it is death, borralo del vector
-				{
-					powerUpsVector.erase(it);
-					if (powerUpsVector.size() != 0)
-						break;
-				}
-				else //Update it
-				{
-					(*it)->Update();
-				}
+				aux->actualPower = *it;//eliminarlo del vector
+				aux->powerAction = true;
 			}
+			else
+				(*it)->Update();
+
 		}
 
-
-		//***********************************************************
+		//*******************CheckPowerUpLifeInPlayers************************
+		//player1->CheckPowerLife();                                                       //cada player hace esta funcion en su update
+		//player2->CheckPowerLife();
+		//********************************************************************
 		ball.UpdateMovement();
 		player1->Update(inputs);
 		player2->Update(inputs);
@@ -253,6 +254,7 @@ void Game::Update(Controller * inputs)
 			spacePressed = false;
 		}
 		break;
+
 	case PAUSED:
 		if (inputs->keyboard[(int)inputKeyboard::K_ESC]) sceneName = MENU;
 		else if (inputs->keyboard[(int)inputKeyboard::K_SPACE]) sceneState = RUNNING;
@@ -276,9 +278,11 @@ void Game::Draw(Renderer * myRenderer)
 	player1->Draw(myRenderer);
 	player2->Draw(myRenderer);
 	//***********************powerups*************
-	if (powerUpsVector.size() != 0)
+	if (powerUpsVector.size() != 0) {
 		for (std::vector<PowerUp*>::iterator it = powerUpsVector.begin(); it != powerUpsVector.end(); it++)
 			(*it)->Draw(myRenderer);
+	}
 	//****************************************************
 
 }
+

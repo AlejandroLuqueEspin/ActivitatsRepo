@@ -68,6 +68,29 @@ void Player::Update(Controller* input)
 		if (input->keyboard[(int)inputKeyboard::K_DOWN] && playerCollider.y + playerCollider.h < gameScreen.y + gameScreen.h)
 			playerPos.y += velocity;
 	}
+	//añadir los efectos del powerUp una vez conseguido
+	if (powerAction) {
+		actualPower->owned = true;
+	
+		switch (actualPower->type)
+		{
+		case EXTRA:
+			playerCollider.h += playerCollider.h * 0.20;
+			powerAction = false;
+			break;
+		case MINI:
+			playerCollider.h -= playerCollider.h * 0.20;
+			powerAction = false;
+			break;
+		case SPEED:
+			velocity += velocity * 0.20;
+			powerAction = false;
+			break;
+		default:
+			break;
+		}
+	}
+	CheckPowerLife();
 }
 
 void Player::Draw(Renderer* myRenderer)
@@ -77,6 +100,34 @@ void Player::Draw(Renderer* myRenderer)
 		loaded = true;
 	}
 	myRenderer->PushRotatedSprite("Platform", { 0, 0, myRenderer->GetTextureSize("Platform").x, myRenderer->GetTextureSize("Platform").y }, {playerPos.x, playerPos.y, playerPos.w, playerPos.h}, 270.0f);
+}
+
+void Player::CheckPowerLife()
+{
+	if (actualPower != nullptr && actualPower->activated == false)//si it is !owned, borralo del vector
+	{
+		switch (actualPower->type)
+		{
+		case EXTRA:
+			playerCollider.h -= playerCollider.h * 0.20;
+			delete(actualPower);
+			actualPower = nullptr;
+		break;
+		case MINI:
+			playerCollider.h += playerCollider.h * 0.20;
+			delete(actualPower);
+			actualPower = nullptr;
+			break;
+		case SPEED:
+			velocity -= velocity * 0.20;
+			delete(actualPower);
+			actualPower = nullptr;
+			break;
+		default:
+			break;
+		}
+	}
+
 }
 
 

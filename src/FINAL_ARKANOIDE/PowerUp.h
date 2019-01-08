@@ -8,12 +8,12 @@ class PowerUp
 	
 	int powerUpDirection;
 	int velocity=1;
-	PowerUpType type;
 	float lastTime, actualTime, TimeDown, deltaTime;
 
 public:
-	bool death = false;
+	bool activated, owned;
 	Rect powerUpPosition;
+	PowerUpType type;
 
 
 	PowerUp();
