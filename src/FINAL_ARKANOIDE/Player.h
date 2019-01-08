@@ -31,6 +31,7 @@ public:
 	void Draw(Renderer* myRenderer);
 	void SumarPowerUps();
 	void RestarPoweUps();
+	void ReiniciarPowers();
 	~Player();
 };
 

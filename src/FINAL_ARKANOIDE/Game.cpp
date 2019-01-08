@@ -13,9 +13,9 @@ void Game::loadSettings(Renderer * myRenderer)
 	myRenderer->LoadTextureText("SUNSPIRE", player2->scoreText);
 
 	//******************************LOAD_POWER_UPS*******************
-	myRenderer->LoadTexture("Power_0", "../../res/img/powerUp_1.jpg");
-	myRenderer->LoadTexture("Power_1", "../../res/img/powerUp_2.jpg");
-	myRenderer->LoadTexture("Power_2", "../../res/img/powerUp_3.jpg");
+	myRenderer->LoadTexture("miniPower", "../../res/img/MiniPower.jpg");
+	myRenderer->LoadTexture("extraPower", "../../res/img/ExtraPower.jpg");
+	myRenderer->LoadTexture("speedPower", "../../res/img/SpeedPower.jpg");
 
 	//*********************************LOAD_XML***********************
 	rapidxml::xml_document<> config;
@@ -155,11 +155,14 @@ void Game::Update(Controller * inputs)
 				sceneState = START_GAME;
 			}
 			ball.direction = { 1, 1 };
+			//*Restamos las mejoras obtenidas
+
+			player1->RestarPoweUps();
+			player2->RestarPoweUps();
 			break;
 		case RIGHT:
 			hud.lives2.pop_back();
 			ball.SetSpawn(ballRespawnP2);
-			ball.direction = { -1, 1 };
 			lastPlayerCollision = P2;
 			player1->score += 100;
 			player2->score -= 50;
@@ -175,6 +178,11 @@ void Game::Update(Controller * inputs)
 				player2->setPlayerRespawn();
 				sceneState = START_GAME;
 			}
+			ball.direction = { -1, 1 };
+
+			//*Restamos las mejoras obtenidas
+			player1->RestarPoweUps();
+			player2->RestarPoweUps();
 			break;
 		default:
 			break;

@@ -113,7 +113,8 @@ void Player::SumarPowerUps() {
 		powerAction = false;
 		break;
 	case SPEED:
-		velocity +=10 /*velocity * 0.20*/;
+		velocity += 10 /*velocity * 0.20*/;
+		std::cout << "pillasPEED" << std::endl;
 		powerAction = false;
 		break;
 	default:
@@ -145,6 +146,9 @@ void Player::RestarPoweUps()
 	}
 }
 
+void Player::ReiniciarPowers() {
+
+}
 
 Player::~Player()
 {
