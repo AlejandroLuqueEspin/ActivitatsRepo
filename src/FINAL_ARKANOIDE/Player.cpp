@@ -53,6 +53,7 @@ void Player::setPlayerRespawn()
 
 void Player::Update(Controller* input)
 {
+	//***************Inputs y movimiento******************
 	if (identifier == P1) {
 		playerCollider = { playerPos.x + playerCollider.w, playerPos.y - playerPos.h, playerPos.h, playerPos.w };
 		if (input->keyboard[(int)inputKeyboard::K_W] && playerCollider.y > gameScreen.y) //&& playerPos.y - playerPos.h > 0
@@ -68,29 +69,22 @@ void Player::Update(Controller* input)
 		if (input->keyboard[(int)inputKeyboard::K_DOWN] && playerCollider.y + playerCollider.h < gameScreen.y + gameScreen.h)
 			playerPos.y += velocity;
 	}
+	//******************************************************
+
 	//añadir los efectos del powerUp una vez conseguido
 	if (powerAction) {
 		actualPower->owned = true;
-	
-		switch (actualPower->type)
-		{
-		case EXTRA:
-			playerCollider.h += playerCollider.h * 0.20;
-			powerAction = false;
-			break;
-		case MINI:
-			playerCollider.h -= playerCollider.h * 0.20;
-			powerAction = false;
-			break;
-		case SPEED:
-			velocity += velocity * 0.20;
-			powerAction = false;
-			break;
-		default:
-			break;
-		}
+		SumarPowerUps();
 	}
-	CheckPowerLife();
+	//Restar efectos si el tiempo acaba
+	if (actualPower != nullptr)//si it is !owned, borralo del vector
+	{
+		if (actualPower->activated == false)
+			RestarPoweUps();
+		else
+			actualPower->Update();
+	}
+
 }
 
 void Player::Draw(Renderer* myRenderer)
@@ -102,32 +96,53 @@ void Player::Draw(Renderer* myRenderer)
 	myRenderer->PushRotatedSprite("Platform", { 0, 0, myRenderer->GetTextureSize("Platform").x, myRenderer->GetTextureSize("Platform").y }, {playerPos.x, playerPos.y, playerPos.w, playerPos.h}, 270.0f);
 }
 
-void Player::CheckPowerLife()
-{
-	if (actualPower != nullptr && actualPower->activated == false)//si it is !owned, borralo del vector
+void Player::SumarPowerUps() {
+	std::cout << "se han añadido powers" << std::endl;
+	switch (actualPower->type)
 	{
-		switch (actualPower->type)
-		{
-		case EXTRA:
-			playerCollider.h -= playerCollider.h * 0.20;
-			delete(actualPower);
-			actualPower = nullptr;
-		break;
-		case MINI:
-			playerCollider.h += playerCollider.h * 0.20;
-			delete(actualPower);
-			actualPower = nullptr;
-			break;
-		case SPEED:
-			velocity -= velocity * 0.20;
-			delete(actualPower);
-			actualPower = nullptr;
-			break;
-		default:
-			break;
-		}
-	}
+	case EXTRA:
+		playerCollider.w += playerCollider.w * 0.20;
+		playerPos.w += playerPos.w * 0.20;
 
+		powerAction = false;
+		break;
+	case MINI:
+		playerCollider.w-= playerCollider.w * 0.20;
+		playerPos.w -= playerPos.w * 0.20;
+
+		powerAction = false;
+		break;
+	case SPEED:
+		velocity +=10 /*velocity * 0.20*/;
+		powerAction = false;
+		break;
+	default:
+		std::cout << "meh" << std::endl;
+		break;
+	}
+}
+void Player::RestarPoweUps()
+{	
+	switch (actualPower->type)
+	{
+	case EXTRA:
+		playerCollider.h -= playerCollider.h * 0.20;
+		delete(actualPower);
+		actualPower = nullptr;
+	break;
+	case MINI:
+		playerCollider.h += playerCollider.h * 0.20;
+		delete(actualPower);
+		actualPower = nullptr;
+		break;
+	case SPEED:
+		velocity -= velocity * 0.20;
+		delete(actualPower);
+		actualPower = nullptr;
+		break;
+	default:
+		break;
+	}
 }
 
 

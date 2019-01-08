@@ -34,11 +34,11 @@ Menu::~Menu()
 void Menu::Update(Controller* inputs)
 {
 	if (exitButton.collision(inputs->mousePos) && inputs->mouse) sceneName = (gameState)10;
-
-	if (playButton.collision(inputs->mousePos) && inputs->mouse) sceneName =	PLAY; ///****************
-
-	if (rankingButton.collision(inputs->mousePos) && inputs->mouse) sceneName = RANKING;
-
+	if (rankingButton.collision(inputs->mousePos)) {
+		//HOVER
+		if (inputs->mouse); //RANKING
+	}
+	if (playButton.collision(inputs->mousePos) && inputs->mouse) sceneName = PLAY;
 	if (soundButton.collision(inputs->mousePos)) {
 		//HOVER
 		if (inputs->mouse); //PLAY

@@ -217,6 +217,7 @@ void Game::Update(Controller * inputs)
 						//***************************************************************************************
 					}
 					collided = true;
+
 					//********************get_the closest_blocks_to_see_how_to_rebotar*******************
 					getNeighbourBlocks(i, j);
 					ball = collisions.CheckCollisionBlock(neighboringBlocks, ball);
@@ -235,6 +236,7 @@ void Game::Update(Controller * inputs)
 			{
 				aux->actualPower = *it;//eliminarlo del vector
 				aux->powerAction = true;
+				std::cout << "Has cogido un PowerUp" << std::endl;
 			}
 			else
 				(*it)->Update();

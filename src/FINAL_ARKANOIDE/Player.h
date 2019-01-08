@@ -29,7 +29,8 @@ public:
 	void setPlayerRespawn();
 	void Update(Controller* controller);
 	void Draw(Renderer* myRenderer);
-	void CheckPowerLife();
+	void SumarPowerUps();
+	void RestarPoweUps();
 	~Player();
 };
 
