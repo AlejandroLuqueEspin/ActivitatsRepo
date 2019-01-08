@@ -4,6 +4,7 @@
 
 PowerUp::PowerUp(PlayerNum lastPlayer, Vec2 _powerUpPos)
 {
+	owned = false;
 	//tamaño del rect y posición
 	powerUpPosition = { _powerUpPos.x,_powerUpPos.y,40,20 };//same h y w block
 	//direccion segun player
@@ -29,6 +30,7 @@ void PowerUp::Update()
 {
 	if (owned) {//si el player impacta copn el powerup pone owned a true;
 		//**********************set_the_timer******************
+		std::cout << "empieza el timer del powerup" << std::endl;
 		lastTime = clock();
 		actualTime = (lastTime / 1000) - 1;
 		TimeDown = 60;
@@ -36,7 +38,10 @@ void PowerUp::Update()
 		owned = false;
 		activated = true;
 	}
-	if (activated) {
+
+	if (activated==true) {
+		std::cout << "cuenta atrás" << std::endl;
+
 		deltaTime = clock() - lastTime;
 		lastTime = clock();
 		deltaTime /= CLOCKS_PER_SEC;

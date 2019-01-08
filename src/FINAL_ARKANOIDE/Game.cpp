@@ -157,8 +157,8 @@ void Game::Update(Controller * inputs)
 			ball.direction = { 1, 1 };
 			//*Restamos las mejoras obtenidas
 
-			player1->RestarPoweUps();
-			player2->RestarPoweUps();
+			player1->ReiniciarPowers();
+			player2->ReiniciarPowers();
 			break;
 		case RIGHT:
 			hud.lives2.pop_back();
@@ -181,8 +181,8 @@ void Game::Update(Controller * inputs)
 			ball.direction = { -1, 1 };
 
 			//*Restamos las mejoras obtenidas
-			player1->RestarPoweUps();
-			player2->RestarPoweUps();
+			player1->ReiniciarPowers();
+			player2->ReiniciarPowers();
 			break;
 		default:
 			break;
@@ -238,23 +238,46 @@ void Game::Update(Controller * inputs)
 		}
 
 		//*************powerUps comprobar sus colisiones y moverlos**************************
-		for (std::vector<PowerUp*>::iterator it = powerUpsVector.begin(); it != powerUpsVector.end(); it++) {
-			Player* aux = (lastPlayerCollision == P1) ? player1 : player2;//comprobar siempre con los 2 players
-			if (collisions.CheckRectWithRect((*it)->powerUpPosition, aux->playerCollider))
-			{
-				aux->actualPower = *it;//eliminarlo del vector
-				aux->powerAction = true;
-				std::cout << "Has cogido un PowerUp" << std::endl;
+			for (std::vector<PowerUp*>::iterator it = powerUpsVector.begin(); it != powerUpsVector.end(); it++) {
+				
+				if (collisions.CheckRectWithRect((*it)->powerUpPosition, player1->playerCollider) && (player1->actualPower == nullptr))
+				{
+					player1->actualPower = *it;//eliminarlo del vector
+					player1->powerAction = true; //aquu esta el error de power action que no se cambia la variable del player sino del aux que es iguial
+					std::cout << "Player 1 Has cogido un PowerUp" << std::endl;
+					powerUpsVector.erase(it);
+					it = powerUpsVector.begin();
+
+
+
+				}
+				else if (collisions.CheckRectWithRect((*it)->powerUpPosition, player2->playerCollider) && (player2->actualPower == nullptr))
+				{
+					player2->actualPower = *it;//eliminarlo del vector
+					player2->powerAction = true; //aquu esta el error de power action que no se cambia la variable del player sino del aux que es iguial
+					std::cout << "Player 2 Has cogido un PowerUp" << std::endl;
+					powerUpsVector.erase(it);
+					it = powerUpsVector.begin();
+
+				}
+				else if (collisions.CheckRectWithRect((*it)->powerUpPosition, player1->playerCollider) && (player1->actualPower != nullptr))//coges u powerup pero ya tienes uno asignado
+				{
+
+				}
+				else if (collisions.CheckRectWithRect((*it)->powerUpPosition, player2->playerCollider) && (player2->actualPower != nullptr))//coges u powerup pero ya tienes uno asignado
+				{
+
+				}
+				else
+					(*it)->Update();
+
 			}
-			else
-				(*it)->Update();
-
-		}
-
+		
 		//*******************CheckPowerUpLifeInPlayers************************
 		//player1->CheckPowerLife();                                                       //cada player hace esta funcion en su update
 		//player2->CheckPowerLife();
 		//********************************************************************
+
 		ball.UpdateMovement();
 		player1->Update(inputs);
 		player2->Update(inputs);

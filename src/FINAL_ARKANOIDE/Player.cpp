@@ -148,6 +148,29 @@ void Player::RestarPoweUps()
 
 void Player::ReiniciarPowers() {
 
+	if (actualPower != nullptr) {
+
+		switch (actualPower->type)
+		{
+		case EXTRA:
+			playerCollider.h -= playerCollider.h * 0.20;
+			delete(actualPower);
+			actualPower = nullptr;
+			break;
+		case MINI:
+			playerCollider.h += playerCollider.h * 0.20;
+			delete(actualPower);
+			actualPower = nullptr;
+			break;
+		case SPEED:
+			velocity -= velocity * 0.20;
+			delete(actualPower);
+			actualPower = nullptr;
+			break;
+		default:
+			break;
+		}
+	}
 }
 
 Player::~Player()
