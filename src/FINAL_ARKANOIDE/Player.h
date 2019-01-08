@@ -18,7 +18,8 @@ public:
 	Text scoreText;
 	int score;
 	int livesLeft;
-	int velocity;
+	float velocity;
+	float auxVelocity; //esta velocidad será guardada para hacer los calculos y añadirselos a verdadera velocidad
 	bool powerAction = false;
 
 

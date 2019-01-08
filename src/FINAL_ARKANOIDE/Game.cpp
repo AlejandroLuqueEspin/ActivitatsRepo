@@ -46,7 +46,7 @@ void Game::loadSettings(Renderer * myRenderer)
 	
 	rapidxml::xml_node<> *pVelocity = pRoot->first_node("Level");
 	rapidxml::xml_attribute<> *pAttr = pVelocity->first_attribute("PlatformSpeed");
-	player1->velocity = player2->velocity = atoi(pAttr->value());
+	player1->velocity = player2->velocity = player1->auxVelocity = player2->auxVelocity = atoi(pAttr->value());
 
 	rapidxml::xml_node<> *pNodeI = pRoot->first_node("Level"); 
 	for (pNodeI = pNodeI->first_node("Brick"); pNodeI; pNodeI = pNodeI->next_sibling())
@@ -154,10 +154,10 @@ void Game::Update(Controller * inputs)
 				player2->setPlayerRespawn();;
 				sceneState = START_GAME;
 			}
-			ball.direction = { 1, 1 };
+ 			ball.direction = { 1, 1 };
 			//*Restamos las mejoras obtenidas
 
-			player1->ReiniciarPowers();
+  			player1->ReiniciarPowers();
 			player2->ReiniciarPowers();
 			break;
 		case RIGHT:
@@ -240,13 +240,18 @@ void Game::Update(Controller * inputs)
 		//*************powerUps comprobar sus colisiones y moverlos**************************
 			for (std::vector<PowerUp*>::iterator it = powerUpsVector.begin(); it != powerUpsVector.end(); it++) {
 				
-				if (collisions.CheckRectWithRect((*it)->powerUpPosition, player1->playerCollider) && (player1->actualPower == nullptr))
+				if (collisions.CheckRectWithRect((*it)->powerUpPosition, player1->playerCollider) )
 				{
+					if (player1->actualPower != nullptr) {
+						delete(player1->actualPower);
+						player1->actualPower = nullptr;
+					}
 					player1->actualPower = *it;//eliminarlo del vector
 					player1->powerAction = true; //aquu esta el error de power action que no se cambia la variable del player sino del aux que es iguial
 					std::cout << "Player 1 Has cogido un PowerUp" << std::endl;
 					powerUpsVector.erase(it);
 					it = powerUpsVector.begin();
+					
 
 
 
@@ -262,15 +267,17 @@ void Game::Update(Controller * inputs)
 				}
 				else if (collisions.CheckRectWithRect((*it)->powerUpPosition, player1->playerCollider) && (player1->actualPower != nullptr))//coges u powerup pero ya tienes uno asignado
 				{
-
+					it = powerUpsVector.begin();
 				}
 				else if (collisions.CheckRectWithRect((*it)->powerUpPosition, player2->playerCollider) && (player2->actualPower != nullptr))//coges u powerup pero ya tienes uno asignado
 				{
-
+					it = powerUpsVector.begin();
 				}
 				else
 					(*it)->Update();
 
+				if (powerUpsVector.size() == 0)
+					break;
 			}
 		
 		//*******************CheckPowerUpLifeInPlayers************************

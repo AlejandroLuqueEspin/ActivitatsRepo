@@ -7,11 +7,12 @@ class PowerUp
 {
 	
 	int powerUpDirection;
-	int velocity=1;
+	float velocity=0.5;
 	float lastTime, actualTime, TimeDown, deltaTime;
 
 public:
-	bool activated, owned;
+	bool  owned;
+	PowerUpPlayerState state = NULLE;
 	Rect powerUpPosition;
 	PowerUpType type;
 

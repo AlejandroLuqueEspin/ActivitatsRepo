@@ -25,3 +25,4 @@ struct Rect
 enum ScreenLocation {UP,DOWN,RIGHT,LEFT};
 enum PlayerNum {P1, P2};
 enum PowerUpType {EXTRA,MINI,SPEED};
+enum PowerUpPlayerState {ACTIVE,NOACTIVE,NULLE};

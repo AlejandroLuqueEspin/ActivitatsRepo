@@ -28,7 +28,7 @@ PowerUp::~PowerUp()
 
 void PowerUp::Update()
 {
-	if (owned) {//si el player impacta copn el powerup pone owned a true;
+	if (owned==true) {//si el player impacta copn el powerup pone owned a true;
 		//**********************set_the_timer******************
 		std::cout << "empieza el timer del powerup" << std::endl;
 		lastTime = clock();
@@ -36,10 +36,10 @@ void PowerUp::Update()
 		TimeDown = 60;
 		deltaTime = 0;
 		owned = false;
-		activated = true;
+		state = ACTIVE;
 	}
 
-	if (activated==true) {
+	if (state==ACTIVE) {
 		std::cout << "cuenta atrás" << std::endl;
 
 		deltaTime = clock() - lastTime;
@@ -48,7 +48,7 @@ void PowerUp::Update()
 		TimeDown -= deltaTime;
 		actualTime = (lastTime / 1000) - 1;
 		if (actualTime >= 10)//10 segundos
-			activated = false;//con esto desde el game sabremos si eliminarlo o no, al principio sera null, y el game comprobara si ya no esta activado para eliminarlo.
+			state = NOACTIVE;//con esto desde el game sabremos si eliminarlo o no, al principio sera null, y el game comprobara si ya no esta activado para eliminarlo.
 	}
 	else
 		powerUpPosition.x += powerUpDirection ;

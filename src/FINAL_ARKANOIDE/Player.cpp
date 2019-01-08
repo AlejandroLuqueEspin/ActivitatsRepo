@@ -79,7 +79,7 @@ void Player::Update(Controller* input)
 	//Restar efectos si el tiempo acaba
 	if (actualPower != nullptr)//si it is !owned, borralo del vector
 	{
-		if (actualPower->activated == false)
+		if (actualPower->state == NOACTIVE)
 			RestarPoweUps();
 		else
 			actualPower->Update();
@@ -113,7 +113,7 @@ void Player::SumarPowerUps() {
 		powerAction = false;
 		break;
 	case SPEED:
-		velocity += 10 /*velocity * 0.20*/;
+		velocity += auxVelocity * 0.20;
 		std::cout << "pillasPEED" << std::endl;
 		powerAction = false;
 		break;
@@ -137,7 +137,7 @@ void Player::RestarPoweUps()
 		actualPower = nullptr;
 		break;
 	case SPEED:
-		velocity -= velocity * 0.20;
+		velocity -= auxVelocity * 0.20;
 		delete(actualPower);
 		actualPower = nullptr;
 		break;
@@ -163,7 +163,7 @@ void Player::ReiniciarPowers() {
 			actualPower = nullptr;
 			break;
 		case SPEED:
-			velocity -= velocity * 0.20;
+			velocity -= auxVelocity * 0.20;
 			delete(actualPower);
 			actualPower = nullptr;
 			break;
