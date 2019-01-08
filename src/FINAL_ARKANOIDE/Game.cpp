@@ -275,5 +275,10 @@ void Game::Draw(Renderer * myRenderer)
 	hud.Draw(myRenderer);
 	player1->Draw(myRenderer);
 	player2->Draw(myRenderer);
+	//***********************powerups*************
+	if (powerUpsVector.size() != 0)
+		for (std::vector<PowerUp*>::iterator it = powerUpsVector.begin(); it != powerUpsVector.end(); it++)
+			(*it)->Draw(myRenderer);
+	//****************************************************
 
 }
