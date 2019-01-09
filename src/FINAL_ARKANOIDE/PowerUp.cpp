@@ -6,7 +6,7 @@ PowerUp::PowerUp(PlayerNum lastPlayer, Vec2 _powerUpPos)
 {
 	owned = false;
 	//tamaño del rect y posición
-	powerUpPosition = { _powerUpPos.x,_powerUpPos.y,40,20 };//same h y w block
+	powerUpPosition = { _powerUpPos.x,_powerUpPos.y,20,40 };//same h y w block
 	//direccion segun player
 	if (lastPlayer == P1)
 		powerUpDirection = -1;
@@ -39,14 +39,9 @@ void PowerUp::Update()
 	}
 
 	if (state==ACTIVE) {
-		std::cout << "cuenta atrás" << std::endl;
-
 		
 		actualTime =( (lastTime - deltaTime) / CLOCKS_PER_SEC );
 		lastTime = clock();
-
-		std::cout << actualTime << std::endl;
-
 		if (actualTime>10)//10 segundos
 			state = NOACTIVE;//con esto desde el game sabremos si eliminarlo o no, al principio sera null, y el game comprobara si ya no esta activado para eliminarlo.
 	}

@@ -125,6 +125,7 @@ void Game::Update(Controller * inputs)
 		if (inputs->keyboard[(int)inputKeyboard::K_ESC]) sceneName = MENU;
 		else if (inputs->keyboard[(int)inputKeyboard::K_SPACE]) spacePressed = true;
 		else if (spacePressed) {
+
 			sceneState = RUNNING;
 			spacePressed = false;
 		}
@@ -159,6 +160,7 @@ void Game::Update(Controller * inputs)
 				sceneState = START_GAME;
 			}
  			ball.direction = { 1, 1 };
+			powerUpsVector.clear();
 
 
 			break;
@@ -185,6 +187,7 @@ void Game::Update(Controller * inputs)
 				sceneState = START_GAME;
 			}
 			ball.direction = { -1, 1 };
+			powerUpsVector.clear();
 
 			//*Restamos las mejoras obtenidas
 
@@ -245,7 +248,7 @@ void Game::Update(Controller * inputs)
 		//*************powerUps comprobar sus colisiones y moverlos**************************
 			for (std::vector<PowerUp*>::iterator it = powerUpsVector.begin(); it != powerUpsVector.end(); it++) {
 				
-				if (collisions.CheckRectWithRect((*it)->powerUpPosition, player1->playerCollider) )
+				if (collisions.CheckRectWithRect(player1->playerCollider ,(*it)->powerUpPosition))
 				{
 					if (player1->actualPower != nullptr) {
 						player1->ReiniciarPowers();

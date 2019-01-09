@@ -143,8 +143,9 @@ Ball Collisions::CheckCollisionBlock(std::vector<Rect> aux, Ball ball)//check a 
 
 bool Collisions::CheckRectWithRect(Rect rect1, Rect rect2)
 {
-	if ((rect1.x > rect2.x && rect1.y > rect2.y && rect1.x < rect2.x + rect2.w && rect1.y < rect2.y + rect2.h))
+	if ((rect1.x > rect2.x && rect1.y > rect2.y && rect1.x < rect2.x + rect2.w && rect1.y < rect2.y + rect2.h))	
 		return true;
+
 	else
 		return false;
 }
