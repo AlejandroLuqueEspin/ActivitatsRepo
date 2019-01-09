@@ -33,6 +33,7 @@ void PowerUp::Update()
 		std::cout << "empieza el timer del powerup" << std::endl;
 		lastTime = clock();
 		deltaTime = clock();
+		delayPause = 0;
 		//***************************************************
 		owned = false;
 		state = ACTIVE;
@@ -40,9 +41,9 @@ void PowerUp::Update()
 
 	if (state==ACTIVE) {
 		
-		actualTime =( (lastTime - deltaTime) / CLOCKS_PER_SEC );
+		actualTime =( (lastTime - (deltaTime+delayPause)) / CLOCKS_PER_SEC );
 		lastTime = clock();
-		if (actualTime>10)//10 segundos
+		if (actualTime>5)//10 segundos
 			state = NOACTIVE;//con esto desde el game sabremos si eliminarlo o no, al principio sera null, y el game comprobara si ya no esta activado para eliminarlo.
 	}
 	else

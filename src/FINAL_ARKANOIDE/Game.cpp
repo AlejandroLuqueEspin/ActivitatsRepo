@@ -289,12 +289,21 @@ void Game::Update(Controller * inputs)
 		else if (spacePressed) {
 			sceneState = PAUSED;
 			spacePressed = false;
+			pauseTime = clock();
 		}
 		break;
 
 	case PAUSED:
 		if (inputs->keyboard[(int)inputKeyboard::K_ESC]) sceneName = MENU;
-		else if (inputs->keyboard[(int)inputKeyboard::K_SPACE]) sceneState = RUNNING;
+		else if (inputs->keyboard[(int)inputKeyboard::K_SPACE]) { 
+			sceneState = RUNNING; 
+			if(player1->actualPower!=nullptr)
+				player1->actualPower->delayPause = clock() - pauseTime;
+			if (player2->actualPower != nullptr)
+				player2->actualPower->delayPause = clock() - pauseTime;
+
+
+		}
 		break;
 	case GAME_OVER:
 		break;

@@ -12,6 +12,7 @@ class PowerUp
 
 public:
 	bool  owned;
+	float delayPause;
 	PowerUpPlayerState state = NULLE;
 	Rect powerUpPosition;
 	PowerUpType type;

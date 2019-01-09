@@ -31,6 +31,7 @@ private:
 	Block *mapBlock[12][11];
 	PlayerNum lastPlayerCollision;
 	GameSceneState sceneState;
+	float pauseTime, reanudeTime;
 	bool spacePressed;
 	void loadSettings(Renderer* myRenderer);
 	std::vector<Rect>neighboringBlocks;
