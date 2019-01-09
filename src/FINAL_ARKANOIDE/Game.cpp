@@ -150,15 +150,17 @@ void Game::Update(Controller * inputs)
 			if (hud.lives1.empty()) sceneName = MENU;
 			else
 			{
+				//*Restamos las mejoras obtenidas
+				player1->ReiniciarPowers();
+				player2->ReiniciarPowers();
+				//*spawn localización
 				player1->setPlayerRespawn();
 				player2->setPlayerRespawn();;
 				sceneState = START_GAME;
 			}
  			ball.direction = { 1, 1 };
-			//*Restamos las mejoras obtenidas
 
-  			player1->ReiniciarPowers();
-			player2->ReiniciarPowers();
+
 			break;
 		case RIGHT:
 			hud.lives2.pop_back();
@@ -174,15 +176,18 @@ void Game::Update(Controller * inputs)
 			if (hud.lives2.empty()) sceneName = MENU;
 			else
 			{
+				//*Restamos las mejoras obtenidas
+				player1->ReiniciarPowers();
+				player2->ReiniciarPowers();
+				//*spawn localización
 				player1->setPlayerRespawn();
-				player2->setPlayerRespawn();
+				player2->setPlayerRespawn();;
 				sceneState = START_GAME;
 			}
 			ball.direction = { -1, 1 };
 
 			//*Restamos las mejoras obtenidas
-			player1->ReiniciarPowers();
-			player2->ReiniciarPowers();
+
 			break;
 		default:
 			break;
@@ -243,6 +248,7 @@ void Game::Update(Controller * inputs)
 				if (collisions.CheckRectWithRect((*it)->powerUpPosition, player1->playerCollider) )
 				{
 					if (player1->actualPower != nullptr) {
+						player1->ReiniciarPowers();
 						delete(player1->actualPower);
 						player1->actualPower = nullptr;
 					}
@@ -251,26 +257,18 @@ void Game::Update(Controller * inputs)
 					std::cout << "Player 1 Has cogido un PowerUp" << std::endl;
 					powerUpsVector.erase(it);
 					it = powerUpsVector.begin();
-					
-
-
-
 				}
-				else if (collisions.CheckRectWithRect((*it)->powerUpPosition, player2->playerCollider) && (player2->actualPower == nullptr))
+				else if (collisions.CheckRectWithRect((*it)->powerUpPosition, player2->playerCollider))
 				{
+					if (player2->actualPower != nullptr) {
+						player2->ReiniciarPowers();
+						delete(player2->actualPower);
+						player2->actualPower = nullptr;
+					}
 					player2->actualPower = *it;//eliminarlo del vector
 					player2->powerAction = true; //aquu esta el error de power action que no se cambia la variable del player sino del aux que es iguial
 					std::cout << "Player 2 Has cogido un PowerUp" << std::endl;
 					powerUpsVector.erase(it);
-					it = powerUpsVector.begin();
-
-				}
-				else if (collisions.CheckRectWithRect((*it)->powerUpPosition, player1->playerCollider) && (player1->actualPower != nullptr))//coges u powerup pero ya tienes uno asignado
-				{
-					it = powerUpsVector.begin();
-				}
-				else if (collisions.CheckRectWithRect((*it)->powerUpPosition, player2->playerCollider) && (player2->actualPower != nullptr))//coges u powerup pero ya tienes uno asignado
-				{
 					it = powerUpsVector.begin();
 				}
 				else
@@ -280,10 +278,6 @@ void Game::Update(Controller * inputs)
 					break;
 			}
 		
-		//*******************CheckPowerUpLifeInPlayers************************
-		//player1->CheckPowerLife();                                                       //cada player hace esta funcion en su update
-		//player2->CheckPowerLife();
-		//********************************************************************
 
 		ball.UpdateMovement();
 		player1->Update(inputs);

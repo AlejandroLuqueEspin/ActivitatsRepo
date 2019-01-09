@@ -35,6 +35,7 @@ void PowerUp::Update()
 		actualTime = (lastTime / 1000) - 1;
 		TimeDown = 60;
 		deltaTime = 0;
+		//***************************************************
 		owned = false;
 		state = ACTIVE;
 	}
@@ -47,7 +48,7 @@ void PowerUp::Update()
 		deltaTime /= CLOCKS_PER_SEC;
 		TimeDown -= deltaTime;
 		actualTime = (lastTime / 1000) - 1;
-		if (actualTime >= 10)//10 segundos
+		if (actualTime >= 20)//10 segundos
 			state = NOACTIVE;//con esto desde el game sabremos si eliminarlo o no, al principio sera null, y el game comprobara si ya no esta activado para eliminarlo.
 	}
 	else

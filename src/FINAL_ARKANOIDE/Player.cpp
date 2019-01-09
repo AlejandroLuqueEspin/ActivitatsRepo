@@ -128,11 +128,13 @@ void Player::RestarPoweUps()
 	{
 	case EXTRA:
 		playerCollider.h -= playerCollider.h * 0.20;
+		playerPos.w -= playerPos.w * 0.20;
 		delete(actualPower);
 		actualPower = nullptr;
 	break;
 	case MINI:
 		playerCollider.h += playerCollider.h * 0.20;
+		playerPos.w += playerPos.w * 0.20;
 		delete(actualPower);
 		actualPower = nullptr;
 		break;
@@ -154,11 +156,13 @@ void Player::ReiniciarPowers() {
 		{
 		case EXTRA:
 			playerCollider.h -= playerCollider.h * 0.20;
+			playerPos.w -= playerPos.w * 0.20;
 			delete(actualPower);
 			actualPower = nullptr;
 			break;
 		case MINI:
 			playerCollider.h += playerCollider.h * 0.20;
+			playerPos.w += playerPos.w * 0.20;
 			delete(actualPower);
 			actualPower = nullptr;
 			break;
