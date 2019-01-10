@@ -49,10 +49,17 @@ void Menu::Update(Controller* inputs)
 	if (rankingButton.collision(inputs->mousePos) && inputs->mouse) sceneName = RANKING;
 
 	if (soundButton.collision(inputs->mousePos) && (inputs->mouse)) {
-		if (Mix_PausedMusic)
+		if (Mix_PausedMusic()) {
+			std::cout << "sound resume" << std::endl;
 			Mix_ResumeMusic();
-		else
+			inputs->mouse = false;
+
+		}
+		else {
+			std::cout << "sound pause" << std::endl;
 			Mix_PauseMusic();
+			inputs->mouse = false;
+		}
 	}
 }
 

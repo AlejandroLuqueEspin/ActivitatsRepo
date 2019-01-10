@@ -314,10 +314,15 @@ void Game::Update(Controller * inputs)
 		if (inputs->keyboard[(int)inputKeyboard::K_ESC]) sceneName = MENU;
 		if (soundButton.collision(inputs->mousePos) && (inputs->mouse))
 		{
-			if (Mix_PausedMusic)
+			if (Mix_PausedMusic()) {
 				Mix_ResumeMusic();
-			else
+				inputs->mouse = false;
+			}
+			else{
 				Mix_PauseMusic();
+				inputs->mouse = false;
+				
+			}
 		}
 		else if (inputs->keyboard[(int)inputKeyboard::K_SPACE]) { 
 			sceneState = RUNNING; 
