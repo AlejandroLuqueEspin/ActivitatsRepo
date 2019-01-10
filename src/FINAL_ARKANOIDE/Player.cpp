@@ -55,10 +55,10 @@ void Player::Update(Controller* input)
 {
 	//***************Inputs y movimiento******************
 	if (identifier == P1) {
-		playerCollider = { playerPos.x + playerCollider.w, playerPos.y - playerPos.h, playerPos.h, playerPos.w };
-		if (input->keyboard[(int)inputKeyboard::K_W] && playerCollider.y > gameScreen.y) //&& playerPos.y - playerPos.h > 0
+		playerCollider = { playerPos.x + playerPos.h, playerPos.y - playerPos.h, playerPos.h, playerPos.w };
+		if (input->keyboard[(int)inputKeyboard::K_W] && playerCollider.y > gameScreen.y) 
 			playerPos.y -= velocity;
-		if (input->keyboard[(int)inputKeyboard::K_S] && playerCollider.y + playerCollider.h < gameScreen.y + gameScreen.h) //playerPos.y + playerPos.w - playerPos.h < SCREEN_HEIGHT)
+		if (input->keyboard[(int)inputKeyboard::K_S] && playerCollider.y + playerCollider.h < gameScreen.y + gameScreen.h) 
 			playerPos.y += velocity;
 	}
 	else if (identifier == P2)

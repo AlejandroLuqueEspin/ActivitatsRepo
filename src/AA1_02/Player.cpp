@@ -54,10 +54,10 @@ void Player::setPlayerRespawn()
 void Player::Update(Controller* input)
 {
 	if (identifier == P1) {
-		playerCollider = { playerPos.x + playerCollider.w, playerPos.y - playerPos.h, playerPos.h, playerPos.w };
-		if (input->keyboard[(int)inputKeyboard::K_W] && playerCollider.y > gameScreen.y) //&& playerPos.y - playerPos.h > 0
+		playerCollider = { playerPos.x , playerPos.y - playerPos.h , playerPos.h, playerPos.w };
+		if (input->keyboard[(int)inputKeyboard::K_W] && playerCollider.y > gameScreen.y) 
 			playerPos.y -= velocity;
-		if (input->keyboard[(int)inputKeyboard::K_S] && playerCollider.y + playerCollider.h < gameScreen.y + gameScreen.h) //playerPos.y + playerPos.w - playerPos.h < SCREEN_HEIGHT)
+		if (input->keyboard[(int)inputKeyboard::K_S] && playerCollider.y + playerCollider.h < gameScreen.y + gameScreen.h) 
 			playerPos.y += velocity;
 	}
 	else if (identifier == P2)
@@ -76,7 +76,7 @@ void Player::Draw(Renderer* myRenderer)
 		myRenderer->LoadTexture("Platform", "../../res/img/platform.png");
 		loaded = true;
 	}
-	myRenderer->PushRotatedSprite("Platform", { 0, 0, myRenderer->GetTextureSize("Platform").x, myRenderer->GetTextureSize("Platform").y }, {playerPos.x, playerPos.y, playerPos.w, playerPos.h}, 270.0f);
+	myRenderer->PushRotatedSprite("Platform", { 0, 0, myRenderer->GetTextureSize("Platform").x, myRenderer->GetTextureSize("Platform").y }, {playerPos.x, playerPos.y, playerPos.w, playerPos.h}, 90.0f);
 }
 
 
