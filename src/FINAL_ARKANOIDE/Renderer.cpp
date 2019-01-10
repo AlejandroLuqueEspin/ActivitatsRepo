@@ -24,6 +24,7 @@ Renderer::Renderer()
 	if (TTF_Init() != 0) throw"No es pot inicialitzar SDL_ttf";
 
 	Font font{ "../../res/ttf/sunspire.ttf", "SUNSPIRE", 160 };
+
 	LoadFont(font);
 
 };

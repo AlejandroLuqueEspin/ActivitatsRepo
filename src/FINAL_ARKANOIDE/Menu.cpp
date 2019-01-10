@@ -39,9 +39,9 @@ void Menu::Update(Controller* inputs)
 
 	if (rankingButton.collision(inputs->mousePos) && inputs->mouse) sceneName = RANKING;
 
-	if (soundButton.collision(inputs->mousePos)) {
-		//HOVER
-		if (inputs->mouse); //PLAY
+	if (soundButton.collision(inputs->mousePos)&& (inputs->mouse)) {
+	//PLAY
+
 	}
 }
 

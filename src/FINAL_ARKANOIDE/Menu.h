@@ -10,9 +10,6 @@ class Menu : public Scene
 	Button soundButton;
 	void loadTextures(Renderer* myRenderer);
 
-	std::string bgDir;
-
-
 public:
 	Menu();
 	~Menu();

@@ -7,7 +7,7 @@ void Game::loadSettings(Renderer * myRenderer)
 	//********************************BACKGROUND*************************
 	myRenderer->LoadTexture("Background", "../../res/img/Backgroung.jpg");
 	myRenderer->LoadTexture("Bricks", "../../res/img/bricks.jpg");
-	myRenderer->LoadTexture("bTrans", "../../res/img/bTrans.png");
+
 	//********************************PLAYERS*************************
 	myRenderer->LoadTextureText("SUNSPIRE", player1->scoreText);
 	myRenderer->LoadTextureText("SUNSPIRE", player2->scoreText);
@@ -17,61 +17,67 @@ void Game::loadSettings(Renderer * myRenderer)
 	myRenderer->LoadTexture("extraPower", "../../res/img/ExtraPower.jpg");
 	myRenderer->LoadTexture("speedPower", "../../res/img/SpeedPower.jpg");
 
+	//******************************Load_Pause_Stuff************************
+	myRenderer->LoadTextureText("SUNSPIRE", { "SOUND", "bSOUND_h", green });
+	myRenderer->LoadTexture("bTrans", "../../res/img/bTrans.png");
+	myRenderer->LoadTextureText("SUNSPIRE", soundButton.text);
+
 	//*********************************LOAD_XML***********************
-	rapidxml::xml_document<> config;
-	std::ifstream file("../../res/files/config.xml");
-	std::stringstream buffer;
-	buffer << file.rdbuf();
-	file.close();
-	std::string content(buffer.str());
-	config.parse<0>(&content[0]);
-
-
-	rapidxml::xml_node<> *pRoot = config.first_node();
-	rapidxml::xml_node<> *pNode = pRoot->first_node("BrickInfo");
-
-	Vec2 scoreN, scoreH;
-	rapidxml::xml_node<> *pScore = pNode->first_node("Normal");
-	rapidxml::xml_attribute<> *p = pScore->first_attribute("min");
-	scoreN.x = atoi(p->value());
-	p = pScore->first_attribute("max");
-	scoreN.y = atoi(p->value());
-
-
-	pScore = pNode->first_node("Heavy");
-	p = pScore->first_attribute("min");
-	scoreH.x = atoi(p->value());
-	p = pScore->first_attribute("max");
-	scoreH.y = atoi(p->value());
-	
-	rapidxml::xml_node<> *pVelocity = pRoot->first_node("Level");
-	rapidxml::xml_attribute<> *pAttr = pVelocity->first_attribute("PlatformSpeed");
-	player1->velocity = player2->velocity = player1->auxVelocity = player2->auxVelocity = atoi(pAttr->value());
-
-	rapidxml::xml_node<> *pNodeI = pRoot->first_node("Level"); 
-	for (pNodeI = pNodeI->first_node("Brick"); pNodeI; pNodeI = pNodeI->next_sibling())
 	{
-		int i, j;
-		std::string type;
-		rapidxml::xml_attribute<> *pAttr = pNodeI->first_attribute("type");
-		type = pAttr->value();
-		if (type == "N") {
-			i = atoi(pNodeI->first_attribute("i")->value());
-			j = atoi(pNodeI->first_attribute("j")->value());
-			mapBlock[i][j] = new NormalBlock({ (SCREEN_WIDTH / 2) + ((i-6) *(myRenderer->GetTextureSize("Bricks").y / 3)), 37 + ((myRenderer->GetTextureSize("Bricks").x / 5) * j) }, rand() % scoreN.y + scoreN.x);
-		}
-		else if (type == "H") {
-			i = atoi(pNodeI->first_attribute("i")->value());
-			j = atoi(pNodeI->first_attribute("j")->value());
-			mapBlock[i][j] = new HeavyBlock({ (SCREEN_WIDTH / 2) + ((i - 6) *(myRenderer->GetTextureSize("Bricks").y / 3)), 37 + ((myRenderer->GetTextureSize("Bricks").x / 5) * j) }, rand() % scoreH.y + scoreH.x);
-		}
-		else if (type == "F") {
-			i = atoi(pNodeI->first_attribute("i")->value());
-			j = atoi(pNodeI->first_attribute("j")->value());
-			mapBlock[i][j] = new FixBlock({ (SCREEN_WIDTH / 2) + ((i - 6) *(myRenderer->GetTextureSize("Bricks").y / 3)), 37 + ((myRenderer->GetTextureSize("Bricks").x / 5) * j) }, 1);
+		rapidxml::xml_document<> config;
+		std::ifstream file("../../res/files/config.xml");
+		std::stringstream buffer;
+		buffer << file.rdbuf();
+		file.close();
+		std::string content(buffer.str());
+		config.parse<0>(&content[0]);
+
+
+		rapidxml::xml_node<> *pRoot = config.first_node();
+		rapidxml::xml_node<> *pNode = pRoot->first_node("BrickInfo");
+
+		Vec2 scoreN, scoreH;
+		rapidxml::xml_node<> *pScore = pNode->first_node("Normal");
+		rapidxml::xml_attribute<> *p = pScore->first_attribute("min");
+		scoreN.x = atoi(p->value());
+		p = pScore->first_attribute("max");
+		scoreN.y = atoi(p->value());
+
+
+		pScore = pNode->first_node("Heavy");
+		p = pScore->first_attribute("min");
+		scoreH.x = atoi(p->value());
+		p = pScore->first_attribute("max");
+		scoreH.y = atoi(p->value());
+
+		rapidxml::xml_node<> *pVelocity = pRoot->first_node("Level");
+		rapidxml::xml_attribute<> *pAttr = pVelocity->first_attribute("PlatformSpeed");
+		player1->velocity = player2->velocity = player1->auxVelocity = player2->auxVelocity = atoi(pAttr->value());
+
+		rapidxml::xml_node<> *pNodeI = pRoot->first_node("Level");
+		for (pNodeI = pNodeI->first_node("Brick"); pNodeI; pNodeI = pNodeI->next_sibling())
+		{
+			int i, j;
+			std::string type;
+			rapidxml::xml_attribute<> *pAttr = pNodeI->first_attribute("type");
+			type = pAttr->value();
+			if (type == "N") {
+				i = atoi(pNodeI->first_attribute("i")->value());
+				j = atoi(pNodeI->first_attribute("j")->value());
+				mapBlock[i][j] = new NormalBlock({ (SCREEN_WIDTH / 2) + ((i - 6) *(myRenderer->GetTextureSize("Bricks").y / 3)), 37 + ((myRenderer->GetTextureSize("Bricks").x / 5) * j) }, rand() % scoreN.y + scoreN.x);
+			}
+			else if (type == "H") {
+				i = atoi(pNodeI->first_attribute("i")->value());
+				j = atoi(pNodeI->first_attribute("j")->value());
+				mapBlock[i][j] = new HeavyBlock({ (SCREEN_WIDTH / 2) + ((i - 6) *(myRenderer->GetTextureSize("Bricks").y / 3)), 37 + ((myRenderer->GetTextureSize("Bricks").x / 5) * j) }, rand() % scoreH.y + scoreH.x);
+			}
+			else if (type == "F") {
+				i = atoi(pNodeI->first_attribute("i")->value());
+				j = atoi(pNodeI->first_attribute("j")->value());
+				mapBlock[i][j] = new FixBlock({ (SCREEN_WIDTH / 2) + ((i - 6) *(myRenderer->GetTextureSize("Bricks").y / 3)), 37 + ((myRenderer->GetTextureSize("Bricks").x / 5) * j) }, 1);
+			}
 		}
 	}
-
 	//because of we made an array in the middle of the screen
 	for (int i = -6; i != 6; i++)
 	{
@@ -106,6 +112,9 @@ Game::Game()
 	player1 = new Player(P1);
 	player2 = new Player(P2);
 	hud.Update(player1->scoreText, player2->scoreText);
+
+	soundButton = Button({ "SOUND", "bSOUND", red }, { (SCREEN_WIDTH / 3) + 50, (SCREEN_HEIGHT / 5) + 200, buttonSize.x, buttonSize.y }, "bSOUND", "bSOUND_h");
+
 }
 
 
@@ -200,57 +209,63 @@ void Game::Update(Controller * inputs)
 		//***********************************************************************************
 
 		//************************Collision_with_players***************************
-		if (collisions.CheckRectWithRect(ball.ballRect, player1->playerCollider)) {
-			lastPlayerCollision = P1;
-			ball = collisions.CheckCollisionRectBall(player1->playerCollider, ball);
-		}
-		if (collisions.CheckRectWithRect(ball.ballRect, player2->playerCollider)) {
-			lastPlayerCollision = P2;
-			ball = collisions.CheckCollisionRectBall(player2->playerCollider, ball);
+		{
+			if (collisions.CheckRectWithRect(ball.ballRect, player1->playerCollider)) {
+				lastPlayerCollision = P1;
+				ball = collisions.CheckCollisionRectBall(player1->playerCollider, ball);
+			}
+			if (collisions.CheckRectWithRect(ball.ballRect, player2->playerCollider)) {
+				lastPlayerCollision = P2;
+				ball = collisions.CheckCollisionRectBall(player2->playerCollider, ball);
+			}
 		}
 		//************************************************************************
 
 		//************************Collision_with_blocks***************************
-		for (int i = 0; i < 12; i++)
 		{
-			for (int j = 0; j < 11; j++)
+			for (int i = 0; i < 12; i++)
 			{
-				if (collisions.CheckRectWithRect(ball.ballRect, mapBlock[i][j]->blockCollision))
+				for (int j = 0; j < 11; j++)
 				{
-					mapBlock[i][j]->healthPoints--;
-					if (mapBlock[i][j]->healthPoints == 0) {
-						if (lastPlayerCollision == P1) player1->score += mapBlock[i][j]->points;
-						else player2->score += mapBlock[i][j]->points;
-						player1->SetScore();
-						player2->SetScore();
-						hud.Update(player1->scoreText, player2->scoreText);
-						hud.Update(player1->scoreText, player2->scoreText);
-						//**********************Spawn_PowerUp****************************************************
-						powerUpsVector.push_back(new PowerUp(lastPlayerCollision, { mapBlock[i][j]->blockCollision.x,mapBlock[i][j]->blockCollision.y }));
-					
-						if (rand() % 100 + 1 < 20)
-						{
+					if (collisions.CheckRectWithRect(ball.ballRect, mapBlock[i][j]->blockCollision))
+					{
+						mapBlock[i][j]->healthPoints--;
+						if (mapBlock[i][j]->healthPoints == 0) {
+							if (lastPlayerCollision == P1) player1->score += mapBlock[i][j]->points;
+							else player2->score += mapBlock[i][j]->points;
+							player1->SetScore();
+							player2->SetScore();
+							hud.Update(player1->scoreText, player2->scoreText);
+							hud.Update(player1->scoreText, player2->scoreText);
+							//**********************Spawn_PowerUp****************************************************
+							powerUpsVector.push_back(new PowerUp(lastPlayerCollision, { mapBlock[i][j]->blockCollision.x,mapBlock[i][j]->blockCollision.y }));
 
+							if (rand() % 100 + 1 < 20)
+							{
+
+							}
+							//***************************************************************************************
 						}
-						//***************************************************************************************
+						collided = true;
+
+						//********************get_the closest_blocks_to_see_how_to_rebotar*******************
+						getNeighbourBlocks(i, j);
+						ball = collisions.CheckCollisionBlock(neighboringBlocks, ball);
+						neighboringBlocks.clear();
+						//***********************************************************************************
 					}
-					collided = true;
 
-					//********************get_the closest_blocks_to_see_how_to_rebotar*******************
-					getNeighbourBlocks(i, j);
-					ball = collisions.CheckCollisionBlock(neighboringBlocks, ball);
-					neighboringBlocks.clear();
-					//***********************************************************************************
+					mapBlock[i][j]->Update();
 				}
-
-				mapBlock[i][j]->Update();
 			}
 		}
+		//***********************************************************************************
 
 		//*************powerUps comprobar sus colisiones y moverlos**************************
+		{
 			for (std::vector<PowerUp*>::iterator it = powerUpsVector.begin(); it != powerUpsVector.end(); it++) {
-				
-				if (collisions.CheckRectWithRect(player1->playerCollider ,(*it)->powerUpPosition))
+
+				if (collisions.CheckRectWithRect(player1->playerCollider, (*it)->powerUpPosition))
 				{
 					if (player1->actualPower != nullptr) {
 						player1->ReiniciarPowers();
@@ -282,8 +297,8 @@ void Game::Update(Controller * inputs)
 				if (powerUpsVector.size() == 0)
 					break;
 			}
-		
-
+		}
+		//***********************************************************************************
 		ball.UpdateMovement();
 		player1->Update(inputs);
 		player2->Update(inputs);
@@ -297,15 +312,18 @@ void Game::Update(Controller * inputs)
 
 	case PAUSED:
 		if (inputs->keyboard[(int)inputKeyboard::K_ESC]) sceneName = MENU;
+		if (soundButton.collision(inputs->mousePos) && (inputs->mouse))
+		{
+			//sound
+		}
 		else if (inputs->keyboard[(int)inputKeyboard::K_SPACE]) { 
 			sceneState = RUNNING; 
 			if(player1->actualPower!=nullptr)
 				player1->actualPower->delayPause = clock() - pauseTime;
 			if (player2->actualPower != nullptr)
 				player2->actualPower->delayPause = clock() - pauseTime;
-
-
 		}
+
 		break;
 	case GAME_OVER:
 		break;
@@ -316,6 +334,7 @@ void Game::Draw(Renderer * myRenderer)
 {
 	if (!loaded) loadSettings(myRenderer);
 	myRenderer->PushImage("Background", { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT });
+	//******************************TRANSITIONS*********************************
 	if (sceneState == START_GAME)
 	{
 		myRenderer->PushImage("bTrans", { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT });
@@ -325,13 +344,18 @@ void Game::Draw(Renderer * myRenderer)
 	{
 		myRenderer->PushImage("bTrans", { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT });
 		//texto 
-		//buttons
+
+		//button
+		myRenderer->PushImage(soundButton.buttonId, { soundButton.bRect.x ,  soundButton.bRect.y,  soundButton.bRect.w,  soundButton.bRect.h });
+
 	}
+	//****************************************************************************
 	for (int i = 0; i < 12; i++)
 	{
 		for (int j = 0; j < 11; j++)
 			if (mapBlock[i][j] != nullptr) mapBlock[i][j]->Draw(myRenderer);
 	}
+
 	ball.Draw(myRenderer);
 	hud.Draw(myRenderer);
 	player1->Draw(myRenderer);
