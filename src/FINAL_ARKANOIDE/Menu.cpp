@@ -39,9 +39,11 @@ void Menu::Update(Controller* inputs)
 
 	if (rankingButton.collision(inputs->mousePos) && inputs->mouse) sceneName = RANKING;
 
-	if (soundButton.collision(inputs->mousePos)&& (inputs->mouse)) {
-	//PLAY
-
+	if (soundButton.collision(inputs->mousePos) && (inputs->mouse)) {
+		//PLAY
+		if (Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, 2, 1024) == 1)
+			throw "Error al iniciar SDL_Mixer"
+	
 	}
 }
 

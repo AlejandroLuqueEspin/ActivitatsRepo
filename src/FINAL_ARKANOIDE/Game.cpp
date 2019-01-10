@@ -334,27 +334,35 @@ void Game::Draw(Renderer * myRenderer)
 {
 	if (!loaded) loadSettings(myRenderer);
 	myRenderer->PushImage("Background", { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT });
+
 	//******************************TRANSITIONS*********************************
-	if (sceneState == START_GAME)
 	{
-		myRenderer->PushImage("bTrans", { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT });
-		//texto
-	}
-	else if (sceneState == PAUSED)
-	{
-		myRenderer->PushImage("bTrans", { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT });
-		//texto 
+		if (sceneState == START_GAME)
+		{
+			myRenderer->PushImage("bTrans", { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT });
+			//texto
+		}
+		else if (sceneState == PAUSED)
+		{
+			myRenderer->PushImage("bTrans", { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT });
+			//texto 
 
-		//button
-		myRenderer->PushImage(soundButton.buttonId, { soundButton.bRect.x ,  soundButton.bRect.y,  soundButton.bRect.w,  soundButton.bRect.h });
+			//button
+			myRenderer->PushImage(soundButton.buttonId, { soundButton.bRect.x ,  soundButton.bRect.y,  soundButton.bRect.w,  soundButton.bRect.h });
 
+		}
 	}
 	//****************************************************************************
-	for (int i = 0; i < 12; i++)
+
+	//**********************************************mapBlocks**********************
 	{
-		for (int j = 0; j < 11; j++)
-			if (mapBlock[i][j] != nullptr) mapBlock[i][j]->Draw(myRenderer);
+		for (int i = 0; i < 12; i++)
+		{
+			for (int j = 0; j < 11; j++)
+				if (mapBlock[i][j] != nullptr) mapBlock[i][j]->Draw(myRenderer);
+		}
 	}
+	//*******************************************************************************
 
 	ball.Draw(myRenderer);
 	hud.Draw(myRenderer);

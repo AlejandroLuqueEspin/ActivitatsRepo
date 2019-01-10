@@ -1,6 +1,7 @@
 #pragma once
 #include "Scene.h"
 #include "Button.h"
+#include"SDL_mixer.h"
 
 class Menu : public Scene
 {
