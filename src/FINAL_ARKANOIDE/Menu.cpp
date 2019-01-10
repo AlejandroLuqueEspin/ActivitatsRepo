@@ -15,6 +15,11 @@ void Menu::loadTextures(Renderer* myRenderer)
 
 	myRenderer->LoadTexture("MenuB", "../../res/img/39876678-new-future-technology-concept-abstract-background-for-business-solution.jpg");
 
+	arkanoid_Music = { Mix_LoadMUS("../../res/au/Arkanoid O.S.T - Main theme.mp3") };
+
+	Mix_VolumeMusic(MIX_MAX_VOLUME / 2);
+	Mix_PlayMusic(arkanoid_Music, -1);
+
 	loaded = true;
 }
 
@@ -24,6 +29,10 @@ Menu::Menu()
 	exitButton = Button({ "EXIT", "bEXIT", yellow }, { (SCREEN_WIDTH / 3)+ 50, (SCREEN_HEIGHT / 5), buttonSize.x, buttonSize.y}, "bEXIT", "bEXIT_h");
 	rankingButton = Button({ "RANKING", "bRANKING", blue }, { (SCREEN_WIDTH / 3)+ 50, (SCREEN_HEIGHT / 5)+100, buttonSize.x, buttonSize.y }, "bRANKING", "bRANKING_h");
 	soundButton = Button({ "SOUND", "bSOUND", red }, { (SCREEN_WIDTH / 3)+ 50, (SCREEN_HEIGHT / 5)+200, buttonSize.x, buttonSize.y }, "bSOUND", "bSOUND_h");
+	///Sound
+	if (Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, 2, 1024) == 1)
+		throw "Error al iniciar SDL_Mixer";
+
 }
 
 
@@ -40,10 +49,10 @@ void Menu::Update(Controller* inputs)
 	if (rankingButton.collision(inputs->mousePos) && inputs->mouse) sceneName = RANKING;
 
 	if (soundButton.collision(inputs->mousePos) && (inputs->mouse)) {
-		//PLAY
-		if (Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, 2, 1024) == 1)
-			throw "Error al iniciar SDL_Mixer"
-	
+		if (Mix_PausedMusic)
+			Mix_ResumeMusic();
+		else
+			Mix_PauseMusic();
 	}
 }
 

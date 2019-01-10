@@ -13,6 +13,8 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
+#include"SDL_mixer.h"
+
 #include "Button.h"
 #include "../../dep/inc/XML/rapidxml.hpp"
 #include "../../dep/inc/XML/rapidxml_iterators.hpp"
@@ -42,7 +44,7 @@ private:
 public:
 	Game();
 	~Game();
-	void Update(Controller* inputs);
+	void Update(Controller * inputs);
 	void Draw(Renderer* myRenderer);
 };
 

@@ -14,6 +14,7 @@ class Menu : public Scene
 public:
 	Menu();
 	~Menu();
+	Mix_Music *arkanoid_Music;
 
 	void Update(Controller* inputs);
 	void Draw(Renderer* myRenderer);
