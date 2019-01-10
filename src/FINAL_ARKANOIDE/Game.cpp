@@ -11,6 +11,11 @@ void Game::loadSettings(Renderer * myRenderer)
 	//********************************PLAYERS*************************
 	myRenderer->LoadTextureText("SUNSPIRE", player1->scoreText);
 	myRenderer->LoadTextureText("SUNSPIRE", player2->scoreText);
+	
+	//********************************TEXT****************************
+	myRenderer->LoadTextureText("SUNSPIRE", { "START GAME","startGameID",white });
+	myRenderer->LoadTextureText("SUNSPIRE", { "SPACE BAR TO START","pressSpaceID",white });
+	myRenderer->LoadTextureText("SUNSPIRE", { "...PAUSE...", "pauseID", white });
 
 	//******************************LOAD_POWER_UPS*******************
 	myRenderer->LoadTexture("miniPower", "../../res/img/MiniPower.jpg");
@@ -343,25 +348,6 @@ void Game::Draw(Renderer * myRenderer)
 	if (!loaded) loadSettings(myRenderer);
 	myRenderer->PushImage("Background", { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT });
 
-	//******************************TRANSITIONS*********************************
-	{
-		if (sceneState == START_GAME)
-		{
-			myRenderer->PushImage("bTrans", { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT });
-			//texto
-		}
-		else if (sceneState == PAUSED)
-		{
-			myRenderer->PushImage("bTrans", { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT });
-			//texto 
-
-			//button
-			myRenderer->PushImage(soundButton.buttonId, { soundButton.bRect.x ,  soundButton.bRect.y,  soundButton.bRect.w,  soundButton.bRect.h });
-
-		}
-	}
-	//****************************************************************************
-
 	//**********************************************mapBlocks**********************
 	{
 		for (int i = 0; i < 12; i++)
@@ -382,6 +368,27 @@ void Game::Draw(Renderer * myRenderer)
 			(*it)->Draw(myRenderer);
 	}
 	//****************************************************
+
+		//******************************TRANSITIONS*********************************
+	{
+		if (sceneState == START_GAME)
+		{
+			myRenderer->PushImage("bTrans", { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT });
+			//texto
+			myRenderer->PushImage("startGameID", { (SCREEN_WIDTH / 2) - 150,(SCREEN_HEIGHT / 4) - 75,300,150 });
+			myRenderer->PushImage("pressSpaceID", { (SCREEN_WIDTH / 2) - 225,(SCREEN_HEIGHT / 2) - 50,450,100 });
+		}
+		else if (sceneState == PAUSED)
+		{
+			myRenderer->PushImage("bTrans", { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT });
+			//texto 
+			myRenderer->PushImage("pauseID", { (SCREEN_WIDTH / 2) - 150,(SCREEN_HEIGHT / 4) - 75,300,150 });
+			//button
+			myRenderer->PushImage(soundButton.buttonId, { soundButton.bRect.x ,  soundButton.bRect.y,  soundButton.bRect.w,  soundButton.bRect.h });
+
+		}
+	}
+	//****************************************************************************
 
 }
 
