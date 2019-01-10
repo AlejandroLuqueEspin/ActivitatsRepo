@@ -7,7 +7,7 @@ void Game::loadSettings(Renderer * myRenderer)
 	//********************************BACKGROUND*************************
 	myRenderer->LoadTexture("Background", "../../res/img/Backgroung.jpg");
 	myRenderer->LoadTexture("Bricks", "../../res/img/bricks.jpg");
-
+	myRenderer->LoadTexture("bTrans", "../../res/img/bTrans.png");
 	//********************************PLAYERS*************************
 	myRenderer->LoadTextureText("SUNSPIRE", player1->scoreText);
 	myRenderer->LoadTextureText("SUNSPIRE", player2->scoreText);
@@ -122,6 +122,8 @@ void Game::Update(Controller * inputs)
 	{
 
 	case START_GAME:
+
+
 		if (inputs->keyboard[(int)inputKeyboard::K_ESC]) sceneName = MENU;
 		else if (inputs->keyboard[(int)inputKeyboard::K_SPACE]) spacePressed = true;
 		else if (spacePressed) {
@@ -314,6 +316,17 @@ void Game::Draw(Renderer * myRenderer)
 {
 	if (!loaded) loadSettings(myRenderer);
 	myRenderer->PushImage("Background", { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT });
+	if (sceneState == START_GAME)
+	{
+		myRenderer->PushImage("bTrans", { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT });
+		//texto
+	}
+	else if (sceneState == PAUSED)
+	{
+		myRenderer->PushImage("bTrans", { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT });
+		//texto 
+		//buttons
+	}
 	for (int i = 0; i < 12; i++)
 	{
 		for (int j = 0; j < 11; j++)
