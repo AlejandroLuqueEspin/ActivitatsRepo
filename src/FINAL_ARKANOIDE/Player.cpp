@@ -63,7 +63,7 @@ void Player::Update(Controller* input)
 	}
 	else if (identifier == P2)
 	{
-		playerCollider = { playerPos.x, playerPos.y - playerPos.h, playerPos.h, playerPos.w };
+		playerCollider = { playerPos.x + playerCollider.w/4, playerPos.y - playerPos.h, playerPos.h, playerPos.w };
 		if (input->keyboard[(int)inputKeyboard::K_UP] && playerCollider.y > gameScreen.y)
 			playerPos.y -= velocity;
 		if (input->keyboard[(int)inputKeyboard::K_DOWN] && playerCollider.y + playerCollider.h < gameScreen.y + gameScreen.h)
@@ -101,13 +101,13 @@ void Player::SumarPowerUps() {
 	switch (actualPower->type)
 	{
 	case EXTRA:
-		playerCollider.w += playerCollider.w * 0.20;
+		playerCollider.h += playerCollider.h * 0.20;
 		playerPos.w += playerPos.w * 0.20;
 
 		powerAction = false;
 		break;
 	case MINI:
-		playerCollider.w-= playerCollider.w * 0.20;
+		playerCollider.h-= playerCollider.h* 0.20;
 		playerPos.w -= playerPos.w * 0.20;
 
 		powerAction = false;

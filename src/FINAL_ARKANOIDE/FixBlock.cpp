@@ -13,11 +13,12 @@ FixBlock::~FixBlock()
 
 FixBlock::FixBlock(Vec2 _blockPos, int _score)
 {
+	puedePower = false;
 	blockTextRect.h = blockTextRect.h / 3;
 	blockTextRect.y = blockTextRect.h * 2;
 	blockRect = Rect{ _blockPos.x, _blockPos.y, blockTextRect.w / 5, blockTextRect.h };
-	blockCollision = { blockRect.x, blockRect.y - blockRect.h, blockRect.h, blockRect.w };
-	points = _score;
+	blockCollision = { blockRect.x, blockRect.y - blockRect.h, blockRect.h+10, blockRect.w };
+	points = 0;
 	healthPoints = 1;
 }
 

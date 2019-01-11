@@ -4,9 +4,9 @@
 
 Ball::Ball()
 {
-	ballRect.w = ballRect.h = 18;
+	ballRect.w = ballRect.h = 15;
 	direction = { 1, 1 };
-	velocity = 1;
+	velocity = 2;
 }
 
 void Ball::UpdateMovement()

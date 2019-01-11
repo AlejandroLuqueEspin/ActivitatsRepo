@@ -13,6 +13,7 @@ public:
 	Block();
 	~Block();
 
+	bool puedePower;
 	Rect blockCollision;
 	int points;
 	int healthPoints;

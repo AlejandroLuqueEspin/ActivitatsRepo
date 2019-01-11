@@ -156,7 +156,7 @@ void Game::Update(Controller * inputs)
 			break;
 		case LEFT:
 			hud.lives1.pop_back();
-			ball.SetSpawn(ballRespawnP1);
+			ball.SetSpawn(ballRespawnP2);
 			lastPlayerCollision = P1;
 			player2->score += 100;
 			player1->score -= 50;
@@ -243,11 +243,11 @@ void Game::Update(Controller * inputs)
 							hud.Update(player1->scoreText, player2->scoreText);
 							hud.Update(player1->scoreText, player2->scoreText);
 							//**********************Spawn_PowerUp****************************************************
-							powerUpsVector.push_back(new PowerUp(lastPlayerCollision, { mapBlock[i][j]->blockCollision.x,mapBlock[i][j]->blockCollision.y }));
-
-							if (rand() % 100 + 1 < 20)
-							{
-
+							if (mapBlock[i][j]->puedePower != false) {
+								if (rand() % 100 + 1 < 20)
+								{
+									powerUpsVector.push_back(new PowerUp(lastPlayerCollision, { mapBlock[i][j]->blockCollision.x,mapBlock[i][j]->blockCollision.y }));
+								}
 							}
 							//***************************************************************************************
 						}
@@ -270,7 +270,7 @@ void Game::Update(Controller * inputs)
 		{
 			for (std::vector<PowerUp*>::iterator it = powerUpsVector.begin(); it != powerUpsVector.end(); it++) {
 
-				if (collisions.CheckRectWithRect(player1->playerCollider, (*it)->powerUpPosition))
+				if (collisions.CheckRectWithRect(player1->playerCollider, (*it)->powerUpPosition) || collisions.CheckRectWithRect((*it)->powerUpPosition, player1->playerCollider))
 				{
 					if (player1->actualPower != nullptr) {
 						player1->ReiniciarPowers();
@@ -283,7 +283,7 @@ void Game::Update(Controller * inputs)
 					powerUpsVector.erase(it);
 					it = powerUpsVector.begin();
 				}
-				else if (collisions.CheckRectWithRect((*it)->powerUpPosition, player2->playerCollider))
+				else if (collisions.CheckRectWithRect((*it)->powerUpPosition, player2->playerCollider) || collisions.CheckRectWithRect(player2->playerCollider, (*it)->powerUpPosition))
 				{
 					if (player2->actualPower != nullptr) {
 						player2->ReiniciarPowers();

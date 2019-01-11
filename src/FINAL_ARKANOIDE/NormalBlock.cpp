@@ -13,12 +13,12 @@ NormalBlock::~NormalBlock()
 
 NormalBlock::NormalBlock(Vec2 _blockPos, int _score)
 {
-	
+	puedePower = true;
 	blockTextRect.x = blockTextRect.y = 0;
 	blockTextRect.h = blockTextRect.h / 3;
 	
 	blockRect = Rect{ _blockPos.x, _blockPos.y, blockTextRect.w / 5, blockTextRect.h };
-	blockCollision = { blockRect.x, blockRect.y - blockRect.h, blockRect.h, blockRect.w };
+	blockCollision = { blockRect.x, blockRect.y - blockRect.h, blockRect.h+10, blockRect.w };
 	points = _score;
 	healthPoints = 1;
 }
