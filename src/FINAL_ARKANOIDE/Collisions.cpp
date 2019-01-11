@@ -149,6 +149,14 @@ bool Collisions::CheckRectWithRect(Rect rect1, Rect rect2)
 	else
 		return false;
 }
+bool Collisions::PowerPlayer(Rect rect1, Rect rect2)
+{
+	if ((rect1.x < rect2.x && rect1.y < rect2.y && rect1.x > rect2.x + rect2.w && rect1.y > rect2.y + rect2.h))
+		return true;
+
+	else
+		return false;
+}
 
 ScreenLocation Collisions::CheckSideCollision(Rect rect1, Rect rect2)//check the side where the ball has been collided
 {
