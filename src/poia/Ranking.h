@@ -11,6 +11,7 @@ private:
 
 	std::vector<std::pair<int, std::string>> aRanking;
 	void LoadTextures(Renderer* myRenderer);
+	void LoadTexturesR(Renderer * myRenderer);
 	bool sortbysec(const std::pair<int, std::string>& a, const std::pair<int, std::string>& b);
 	void SortScores();
 	bool loadedR = true;
