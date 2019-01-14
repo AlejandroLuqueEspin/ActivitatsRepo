@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -125,12 +125,11 @@
     <ClInclude Include="Collisions.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="Controller.h" />
-    <ClInclude Include="DinText.h" />
+    <ClInclude Include="DynamicText.h" />
     <ClInclude Include="FixBlock.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="HeavyBlock.h" />
-    <ClInclude Include="HeavyBrick.h" />
     <ClInclude Include="HUD.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="NoneBlock.h" />
@@ -151,7 +150,7 @@
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Collisions.cpp" />
     <ClCompile Include="Controller.cpp" />
-    <ClCompile Include="DinText.cpp" />
+    <ClCompile Include="DynamicText.cpp" />
     <ClCompile Include="FixBlock.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameManager.cpp" />
@@ -168,6 +167,9 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SplashScreen.cpp" />
     <ClCompile Include="Vec2.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

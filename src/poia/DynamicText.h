@@ -2,14 +2,14 @@
 #include "Types.h"
 #include "Renderer.h"
 
-class DinText
+class DynamicText
 {
 	Text text;
 	Rect position;
 public:
-	DinText();
-	DinText(Rect newPosition);
-	~DinText();
+	DynamicText();
+	DynamicText(Rect newPosition);
+	~DynamicText();
 
 	void UpdateText(Text newText);
 	void Draw(Renderer* myRenderer);

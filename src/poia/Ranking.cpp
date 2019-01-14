@@ -11,7 +11,7 @@ void Ranking::LoadTextures(Renderer * myRenderer)
 	//Background
 	myRenderer->LoadTexture("RankingB", "../../res/img/apps.53029.9007199266525955.8c4385ac-fc48-4b5c-89e7-f1d71f13d5a4.jpg");//nombre y path
 	loaded = true;
-
+	//*********** cargar texturas una vez ordenado el vector *********
 	if (loadedR == true) 
 	{
 		int count = 0;
@@ -39,6 +39,7 @@ void Ranking::LoadTexturesR(Renderer * myRenderer)
 
 void Ranking::UpdateScores() 
 {
+	//**************actualizamos el ranking con los datos del ganador***********
 	std::ofstream fSalida("../../res/files/ranking.bin", std::ios::out | std::ios::binary |std::ios::app);
 
 	std::string info = nameWinerPlayer;
@@ -63,12 +64,13 @@ void Ranking::LoadScores()
 	std::string loadedName;
 	int loadedScore;
 	size_t len;
-	if (fEntrada) {
+	//***********Cargamos el archivo binario**************
+	if (fEntrada) {//comprobamos si existe el arhivo
 
-		while (true) {
+		while (true) {//bucle de lectura del archivo
 
 			fEntrada.read(reinterpret_cast<char*>(&len), sizeof(size_t));
-			if (fEntrada.eof()) break;
+			if (fEntrada.eof()) break; //si no lee nada sale del bucle
 			char* temp = new char[len + 1];
 			fEntrada.read(temp, len);
 
@@ -93,13 +95,9 @@ void Ranking::LoadScores()
 
 }
 
-bool Ranking::sortbysec(const std::pair<int, std::string> &a, const std::pair<int, std::string> &b)
-{
-	return (a.second < b.second);
-}
-
 void Ranking::SortScores() 
 {
+	//*****************ordenamos el ranking******************
 	std::sort(aRanking.begin(), aRanking.end());
 
 }
@@ -126,7 +124,7 @@ void Ranking::Draw(Renderer * myRenderer)
 	if (!loaded) LoadTextures(myRenderer);
 	myRenderer->PushImage("RankingB", { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT });
 	myRenderer->PushImage(exitButton.buttonId, { exitButton.bRect.x ,  exitButton.bRect.y,  exitButton.bRect.w,  exitButton.bRect.h });
-
+	//******************dibujamos los datos si se han cargado****************
 	if (loadedR) 
 	{
 		int y = 0;

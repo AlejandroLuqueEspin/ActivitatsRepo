@@ -132,7 +132,6 @@ Game::~Game()
 
 void Game::Update(Controller * inputs)
 {
-	sceneState = GAME_OVER;
 
 	bool collided = false;
 	switch (sceneState)

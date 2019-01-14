@@ -6,8 +6,8 @@ HUD::HUD()
 {
 	scorePos1 = locationScoreP1;
 	scorePos2 = locationScoreP2;
-	points1 = new DinText(scorePos1);
-	points2 = new DinText(scorePos2);
+	points1 = new DynamicText(scorePos1);
+	points2 = new DynamicText(scorePos2);
 	lives1.push_back(locationLife1P1);
 	lives1.push_back(locationLife2P1);
 	lives1.push_back(locationLife3P1);

@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include "DinText.h"
+#include "DynamicText.h"
 #include "Types.h"
 #include "Renderer.h"
 
@@ -12,7 +12,7 @@ private:
 
 public:
 	std::vector<Rect> lives1, lives2;
-	DinText *points1, *points2;
+	DynamicText *points1, *points2;
 
 	HUD();
 	~HUD();
